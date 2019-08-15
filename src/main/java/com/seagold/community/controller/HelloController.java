@@ -9,9 +9,12 @@
  */
 package com.seagold.community.controller;
 
+import com.seagold.community.entity.User;
+import com.seagold.community.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -23,10 +26,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class HelloController {
-    @RequestMapping("/hello")
-    public String hello(String name, Model model){
-        model.addAttribute("name", name);
+    @Autowired
+    UserMapper userMapper;
 
-        return "hello";
+
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public void add(){
+        User user = new User();
+        user.setAccountId("1610501340");
+        user.setName("admin");
+        userMapper.insert(user);
     }
 }

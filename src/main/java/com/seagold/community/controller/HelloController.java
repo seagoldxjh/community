@@ -26,6 +26,7 @@ public class HelloController {
     @RequestMapping("/hello")
     public String hello(String name, Model model){
         model.addAttribute("name", name);
+
         return "hello";
     }
 }

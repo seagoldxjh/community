@@ -19,3 +19,34 @@ community of study
 5. 利用access_token请求github提供的user接口
    https://api.github.com/user?access_token=xxxxx   Get方式
 6. 返回Git用户，存入数据，更新登陆状态
+
+## Redis实现用户三天免登陆
+1. 用户登陆成功后,利用UUID生成token,将token放入cookie中并设置3天有效期
+```java
+String token = UUID.randomUUID().toString();
+Cookie cookie = new Cookie("token", token);
+cookie.setMaxAge(60*60*24*3);
+response.addCookie(cookie);
+```
+2. 将用户信息存入redis中，设置有效时间为3天
+```java
+redisTemplate.opsForValue().set(user.getToken(), user,60*60*24*3, TimeUnit.SECONDS);
+```
+3. 编写拦截器,查看本地是否有token,若存在,则从redis中查询出用户信息存入session,若无则返回登陆页面
+```java
+Cookie[] cookies = request.getCookies();
+if (cookies == null){
+   return true;
+}
+for (Cookie cookie : cookies) {
+   if("token".equals(cookie.getName())){
+       String token = cookie.getValue();
+       Object o = redisTemplate.opsForValue().get(token);
+       System.out.println(o);
+       if(o != null){
+           request.getSession().setAttribute("user", o);
+       }
+       break;
+   }
+}
+```

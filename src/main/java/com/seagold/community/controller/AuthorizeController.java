@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.UUID;
@@ -77,6 +78,7 @@ public class AuthorizeController {
                            HttpServletResponse response,
                            HttpSession session){
 
+        //封装github需要的参数
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
@@ -84,8 +86,10 @@ public class AuthorizeController {
         accessTokenDTO.setRedirect_uri(redirectUri);
         accessTokenDTO.setState(state);
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
+        //通过git返回的accessToken拿到用户信息
         GithubUser githubUser = githubProvider.getUser(accessToken);
 
+        //拿到用户信息后封装自己的用户表用户
         if (githubUser != null && githubUser.getId() != null) {
             User user = new User();
             user.setName(githubUser.getName());
@@ -93,9 +97,17 @@ public class AuthorizeController {
             user.setHeadImg(githubUser.getAvatar_url());
             String token = UUID.randomUUID().toString();
             user.setToken(token);
-            System.out.println(user+"=======");
-            userService.insert(user);
-            System.out.println(user.getId());
+
+            //根据github用户id在自己的数据库中查找是否有该用户，若有则进行更新用户的name，头像信息
+            //若无，则添加用户信息到数据库中
+            User findUser = userService.findByAccountId(user.getAccountId());
+
+            if(findUser == null){
+                userService.insert(user);
+            }else {
+                user.setId(findUser.getId());
+                userService.updateById(user);
+            }
 
             Cookie cookie = new Cookie("token", token);
             cookie.setMaxAge(60*60*24*3);
@@ -105,5 +117,16 @@ public class AuthorizeController {
         } else {
             return "redirect:/";
         }
+
+    }
+
+    /**
+     * 用户退出登陆
+     * 清除用户的本地cookie，及服务器端的session和redis中临时保存的用户数据
+     */
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request,HttpServletResponse response){
+        userService.logout(request, response);
+        return "redirect:/";
     }
 }

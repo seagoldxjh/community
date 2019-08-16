@@ -9,6 +9,8 @@
  */
 package com.seagold.community.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.seagold.community.dto.QuestionDTO;
 import com.seagold.community.entity.Question;
 import com.seagold.community.entity.User;
@@ -16,6 +18,8 @@ import com.seagold.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,12 +41,22 @@ public class QuestionController {
     @Autowired
     QuestionService questionService;
 
+
+    /**
+     * post方式提交用户发起的问题
+     * @param title
+     * @param description
+     * @param tag
+     * @param request
+     * @param model
+     * @return
+     */
     @PostMapping("/publishQuestion")
     public String doPublish(
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "tag", required = false) String tag,
-            //@RequestParam(value = "id", required = false) Long id,
+            @RequestParam(value = "id", required = false) Integer id,
             HttpServletRequest request,
             Model model) {
         model.addAttribute("title", title);
@@ -80,16 +94,58 @@ public class QuestionController {
         question.setDescription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
-        question.setGmtCreate(System.currentTimeMillis());
-        question.setGmtModified(question.getGmtCreate());
-        questionService.insertQuestion(question);
+        question.setHeadImg(user.getHeadImg());
+        question.setId(id);
+        if(question.getId() == null){
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionService.insertQuestion(question);
+        }else {
+            question.setGmtModified(question.getGmtCreate());
+            questionService.updata(question);
+        }
         return "redirect:/";
     }
 
+    @GetMapping("/publish/{id}")
+    public String edit(@PathVariable(name = "id") Integer id,Model model){
+        QuestionDTO questionDTO = questionService.findById(id);
+        model.addAttribute("title", questionDTO.getTitle());
+        model.addAttribute("description", questionDTO.getDescription());
+        model.addAttribute("tag", questionDTO.getTag());
+        model.addAttribute("id", questionDTO.getId());
+        return "publish";
+    }
+
+    /**
+     * 发起过的所有问题数据分页返回数据
+     * @param page
+     * @param size
+     * @param model
+     * @return
+     */
     @RequestMapping("/")
-    public String hello(Model model){
-        List<QuestionDTO> all = questionService.findAll();
-        model.addAttribute("questions", all);
+    public String hello(@RequestParam(value = "page",defaultValue = "1") int page,
+                        @RequestParam(value = "size",defaultValue = "10") int size,
+                        Model model){
+        PageHelper.startPage(page, size);
+        List<Question> all = questionService.findAllQuestion();
+        PageInfo<Question> pageInfo = new PageInfo<>(all);
+        model.addAttribute("questions", pageInfo);
+        //return pageInfo;
         return "index";
+    }
+
+    /**
+     * 根据id查询问题返回问题及发起问题的用户数据
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping("/question/{id}")
+    public String question(@PathVariable(name = "id") Integer id,Model model){
+        QuestionDTO question = questionService.findById(id);
+        model.addAttribute("question", question);
+        return "question";
     }
 }

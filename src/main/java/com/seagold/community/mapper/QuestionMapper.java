@@ -21,5 +21,4 @@ import com.seagold.community.entity.Question;
  * @since 1.0.0
  */
 public interface QuestionMapper extends BaseMapper<Question> {
-
 }

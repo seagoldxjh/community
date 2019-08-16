@@ -9,6 +9,7 @@
  */
 package com.seagold.community.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.seagold.community.entity.User;
 import com.seagold.community.mapper.UserMapper;
 import com.seagold.community.service.UserService;
@@ -16,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -52,4 +56,34 @@ public class UserServiceImpl implements UserService {
         System.out.println(user);
         redisTemplate.opsForValue().set(user.getToken(), user,60*60*24*3, TimeUnit.SECONDS);
     }
+
+    @Override
+    public User findByAccountId(String id) {
+        QueryWrapper<User> o = new QueryWrapper<>();
+        o.eq("account_id", id);
+        return userMapper.selectOne(o);
+    }
+
+    @Override
+    public void updateById(User user) {
+        userMapper.updateById(user);
+    }
+
+    @Override
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        request.getSession().invalidate();
+        System.out.println("用户注销");
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null || cookies.length != 0){
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")){
+                    String token = cookie.getValue();
+                    redisTemplate.delete(token);
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                }
+            }
+        }
+    }
+
 }

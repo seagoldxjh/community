@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${sectionName}">个人中心</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:insert="~{navigation :: nav}"></div>
+
+<div class="container-fluid main profile" style="border-radius:10px; box-shadow:0px 0px 16px 5px #ccc; ">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h2><span th:text="${sectionName}"></span></h2>
+            <hr>
+            <div class="media" th:each="question : ${questions.list}">
+                <div class="media-left">
+                    <a href="#">
+                        <!--<img class="media-object img-rounded" th:src="${question.user.headImg}">-->
+                        <img class="media-object img-rounded" th:src="${question.headImg}">
+                    </a>
+                </div>
+                <div class="media-body" style="padding-left: 20px;">
+                    <h4 class="media-heading" >
+                        <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
+                    </h4>
+                    <span class="text-desc"><span th:text="${question.commentCount}"></span> 个回复 • <span
+                            th:text="${question.viewCount}"></span> 次浏览 • <span
+                            th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span>
+                </div>
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <!--当前页数是否是首页，如果不是则出现首页标志-->
+                    <li th:if="${!questions.isFirstPage}">
+                        <a th:href="@{'/profile/'+${section}}" aria-label="Previous">
+                            <span aria-hidden="true">首页</span>
+                        </a>
+                    </li>
+                    <!--当前页数是否还有上一页，如果不是则出现上一页标志-->
+                    <li th:if="${questions.hasPreviousPage}">
+                        <a th:href="@{'/profile/'+${section}(page=${questions.pageNum - 1})}" aria-label="Previous">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                    </li>
+
+                    <!--循环展示页数-->
+                    <li th:each="navigatepageNum : ${questions.navigatepageNums}" th:class="${navigatepageNum == questions.pageNum} ? 'active' : ''">
+                        <a th:text="${navigatepageNum}"
+                           th:href="@{'/profile/'+${section}(page=${navigatepageNum})}">
+                        </a>
+                    </li>
+
+                    <!--当前页数是否还有下一页，如果不是则出现下一页标志-->
+                    <li th:if="${questions.hasNextPage}">
+                        <a th:href="@{'/profile/'+${section}(page=${questions.pageNum + 1})}" aria-label="Next">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                    </li>
+                    <!--当前页数是否是尾页，如果不是则出现尾页标志-->
+                    <li th:if="${!questions.isLastPage}">
+                        <a aria-label="Previous" th:href="@{'/profile/'+${section}(page=${questions.pages})}">
+                            <span aria-hidden="true">尾页</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="list-group section">
+                <a href="/profile/questions"
+                   th:class="${section == 'questions'}? 'active list-group-item' : 'list-group-item'">我的问题</a>
+                <a href="/profile/replies"
+                   th:class="${section == 'replies'}? 'active list-group-item' : 'list-group-item'">
+                    最新回复
+                    <span class="badge" th:text="${session.unreadCount}"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

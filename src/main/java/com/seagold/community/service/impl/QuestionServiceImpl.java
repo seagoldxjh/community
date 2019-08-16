@@ -20,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -56,5 +58,53 @@ public class QuestionServiceImpl implements QuestionService {
             questionDTOList.add(questionDTO);
         }
         return questionDTOList;
+    }
+
+    @Override
+    public List<Question> findAllQuestion() {
+        return questionMapper.selectList(null);
+    }
+
+    /**
+     * 根据用户个人id，查询自己发起过的所有问题
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Question> findAllByCreator(Integer id) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("creator", id);
+        return questionMapper.selectByMap(map);
+    }
+
+    /**
+     * 根据问题的id查询该问题的所有信息，在封装一个发起问题用户的个人信息
+     * @param id
+     * @return
+     */
+    @Override
+    public QuestionDTO findById(Integer id) {
+        QuestionDTO questionDTO = new QuestionDTO();
+
+        Question question = questionMapper.selectById(id);
+        question.setViewCount(question.getViewCount() + 1);
+        questionMapper.updateById(question);
+
+        User user = userMapper.selectById(question.getCreator());
+        BeanUtils.copyProperties(question, questionDTO);
+        questionDTO.setUser(user);
+        return questionDTO;
+    }
+
+    @Override
+    public void updata(Question question) {
+        questionMapper.updateById(question);
+    }
+
+    @Override
+    public void incView(Integer id) {
+        Question question = questionMapper.selectById(id);
+        question.setViewCount(question.getViewCount() + 1);
+        questionMapper.updateById(question);
     }
 }

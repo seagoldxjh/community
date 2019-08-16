@@ -17,6 +17,7 @@ body {
 }
 
 .media-object {
+    margin-top: 6px;
     width: 38px;
     height: 38px;
 }

@@ -25,4 +25,18 @@ import java.util.List;
 public interface QuestionService {
     void insertQuestion(Question question);
     List<QuestionDTO> findAll();
+    List<Question> findAllQuestion();
+
+    /**
+     * 根据传入的用户id，查询该用户提出的所有问题
+     * @param id
+     * @return
+     */
+    List<Question> findAllByCreator(Integer id);
+    QuestionDTO findById(Integer id);
+
+
+    void updata(Question question);
+
+    void incView(Integer id);
 }

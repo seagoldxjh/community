@@ -11,6 +11,8 @@ package com.seagold.community.service;
 
 import com.seagold.community.entity.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -25,4 +27,7 @@ public interface UserService {
     void insert(User user);
     List<User> findAll();
     void autoLogin(User user);
+    User findByAccountId(String id);
+    void updateById(User user);
+    void logout(HttpServletRequest request, HttpServletResponse response);
 }

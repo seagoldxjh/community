@@ -22,7 +22,7 @@ import lombok.Data;
  */
 @Data
 public class QuestionDTO {
-    private int id;
+    private Integer id;
     private String title;
     private String description;
     private String tag;

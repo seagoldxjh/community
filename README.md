@@ -50,3 +50,34 @@ for (Cookie cookie : cookies) {
    }
 }
 ```
+
+## 社区帖子的发布,修改,分页展示模块
+1. 集成PageHelper分页插件,并配置bean,采用MybatisPlus为Mybatis做增强操作，减少项目大量SQL
+```java
+@Configuration
+public class MybatisConfig {
+    @Bean
+    public PageHelper pageHelper(){
+        PageHelper pageHelper = new PageHelper();
+        Properties p = new Properties();
+        //会将 RowBounds 中的 offset 参数当成 pageNum 使用，可以用页码和页面大小两个参数进行分页。
+        p.setProperty("offsetAsPageNum","true");
+        //使用 RowBounds 分页会进行 count 查询。
+        p.setProperty("rowBoundsWithCount","true");
+        //分页合理化参数，默认值为false。当该参数设置为 true 时，pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页。
+        p.setProperty("reasonable","true");
+        pageHelper.setProperties(p);
+        return pageHelper;
+    }
+    //悲观锁插件
+    @Bean
+    public OptimisticLockerInterceptor optimisticLockerInterceptor() {
+        return new OptimisticLockerInterceptor();
+}
+```
+2. 使用thymeleaf+Bootstrap解析数据解析美化
+所用文档链接:
+- [MyBatisPlus文档]https://mp.baomidou.com/
+- [Bootstrap文档]https://v3.bootcss.com/css/
+- [SpringBoot文档]https://spring.io/
+

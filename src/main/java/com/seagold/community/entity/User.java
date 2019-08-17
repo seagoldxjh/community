@@ -26,7 +26,7 @@ import java.io.Serializable;
 @Data
 public class User implements Serializable {
     @TableId(type = IdType.AUTO)
-    private int id;
+    private Long id;
     private String name;
     private String accountId;
     private String token;

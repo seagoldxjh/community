@@ -11,9 +11,11 @@ package com.seagold.community.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.seagold.community.dto.CommentUserDTO;
 import com.seagold.community.dto.QuestionDTO;
 import com.seagold.community.entity.Question;
 import com.seagold.community.entity.User;
+import com.seagold.community.service.CommentService;
 import com.seagold.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -39,8 +42,10 @@ import java.util.List;
 public class QuestionController {
 
     @Autowired
-    QuestionService questionService;
+    private QuestionService questionService;
 
+    @Autowired
+    private CommentService commentService;
 
     /**
      * post方式提交用户发起的问题
@@ -56,7 +61,7 @@ public class QuestionController {
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "tag", required = false) String tag,
-            @RequestParam(value = "id", required = false) Integer id,
+            @RequestParam(value = "id", required = false) Long id,
             HttpServletRequest request,
             Model model) {
         model.addAttribute("title", title);
@@ -107,8 +112,14 @@ public class QuestionController {
         return "redirect:/";
     }
 
+    /**
+     * 用户对自己提出过的问题进行编辑修改
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable(name = "id") Integer id,Model model){
+    public String edit(@PathVariable(name = "id") Long id,Model model){
         QuestionDTO questionDTO = questionService.findById(id);
         model.addAttribute("title", questionDTO.getTitle());
         model.addAttribute("description", questionDTO.getDescription());
@@ -138,14 +149,30 @@ public class QuestionController {
 
     /**
      * 根据id查询问题返回问题及发起问题的用户数据
+     * 查询question中id=？的type=1的所有评论，表示评论为评论问题，而不是二级评论
      * @param id
      * @param model
      * @return
      */
     @RequestMapping("/question/{id}")
-    public String question(@PathVariable(name = "id") Integer id,Model model){
+    public String question(@PathVariable(name = "id") Long id,Model model){
         QuestionDTO question = questionService.findById(id);
         model.addAttribute("question", question);
+
+        List<CommentUserDTO> comments = commentService.findAllById(id, 1);
+        model.addAttribute("comments",comments);
+
         return "question";
+    }
+
+    /**
+     * 用于测试上一个方法的Json方便调试,本身无意义
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("tt")
+    public List<CommentUserDTO> hh(){
+        List<CommentUserDTO> comments = commentService.findAllById(42L, 1);
+        return comments;
     }
 }

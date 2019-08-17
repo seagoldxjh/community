@@ -56,6 +56,7 @@ public class GithubProvider {
     }
 
     /**
+     * 通过github返回的accessToken获取github用户信息
      * @param accessToken
      * @return
      */

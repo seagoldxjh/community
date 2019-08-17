@@ -9,9 +9,12 @@
  */
 package com.seagold.community.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.seagold.community.dto.QuestionDTO;
+import com.seagold.community.entity.Comment;
 import com.seagold.community.entity.Question;
 import com.seagold.community.entity.User;
+import com.seagold.community.mapper.CommentMapper;
 import com.seagold.community.mapper.QuestionMapper;
 import com.seagold.community.mapper.UserMapper;
 import com.seagold.community.service.QuestionService;
@@ -36,10 +39,13 @@ import java.util.Map;
 public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
-    QuestionMapper questionMapper;
+    private QuestionMapper questionMapper;
 
     @Autowired
-    UserMapper userMapper;
+    private  UserMapper userMapper;
+
+    @Autowired
+    private  CommentMapper commentMapper;
 
     @Override
     public void insertQuestion(Question question) {
@@ -62,7 +68,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<Question> findAllQuestion() {
-        return questionMapper.selectList(null);
+        return questionMapper.selectList(new QueryWrapper<Question>().orderByDesc("id"));
     }
 
     /**
@@ -71,7 +77,7 @@ public class QuestionServiceImpl implements QuestionService {
      * @return
      */
     @Override
-    public List<Question> findAllByCreator(Integer id) {
+    public List<Question> findAllByCreator(Long id) {
         Map<String,Object> map = new HashMap<>();
         map.put("creator", id);
         return questionMapper.selectByMap(map);
@@ -83,7 +89,7 @@ public class QuestionServiceImpl implements QuestionService {
      * @return
      */
     @Override
-    public QuestionDTO findById(Integer id) {
+    public QuestionDTO findById(Long id) {
         QuestionDTO questionDTO = new QuestionDTO();
 
         Question question = questionMapper.selectById(id);
@@ -101,10 +107,31 @@ public class QuestionServiceImpl implements QuestionService {
         questionMapper.updateById(question);
     }
 
+    /**
+     * 根据id查询到问题，对问题的浏览数+1
+     * @param id
+     */
     @Override
-    public void incView(Integer id) {
+    public void incView(Long id) {
         Question question = questionMapper.selectById(id);
         question.setViewCount(question.getViewCount() + 1);
         questionMapper.updateById(question);
+    }
+
+    /**
+     * 根据id查询到问题，对问题的评论数+1
+     * @param id
+     */
+    @Override
+    public void incCommentCount(Long id) {
+        Question question = questionMapper.selectById(id);
+        if(question != null){
+            question.setCommentCount(question.getCommentCount() + 1);
+            questionMapper.updateById(question);
+        }else {
+            Comment comment = commentMapper.selectById(id);
+            comment.setCommentCount(comment.getCommentCount() + 1);
+            commentMapper.updateById(comment);
+        }
     }
 }

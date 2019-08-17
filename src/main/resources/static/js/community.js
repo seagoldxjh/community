@@ -1,8 +1,4 @@
 /**
- * Created by codedrinker on 2019/6/1.
- */
-
-/**
  * 提交回复
  */
 function post() {
@@ -13,7 +9,8 @@ function post() {
 
 function comment2target(targetId, type, content) {
     if (!content) {
-        alert("不能回复空内容~~~");
+        $("#error_msg").text("不能回复空内容~~~");
+        $('#myModal').modal('show')
         return;
     }
 
@@ -27,28 +24,17 @@ function comment2target(targetId, type, content) {
             "type": type
         }),
         success: function (response) {
-            if (response.code == 200) {
+            console.log(response)
+            if (response.code == 0) {
+                // $("#comment_section").hide();
                 window.location.reload();
             } else {
-                if (response.code == 2003) {
-                    var isAccepted = confirm(response.message);
-                    if (isAccepted) {
-                        window.open("https://github.com/login/oauth/authorize?client_id=2859958f9f059979ed3a&redirect_uri=" + document.location.origin + "/callback&scope=user&state=1");
-                        window.localStorage.setItem("closable", true);
-                    }
-                } else {
-                    alert(response.message);
-                }
+                $("#error_msg").text(response.msg);
+                $('#myModal').modal('show');
             }
         },
         dataType: "json"
     });
-}
-
-function comment(e) {
-    var commentId = e.getAttribute("data-id");
-    var content = $("#input-" + commentId).val();
-    comment2target(commentId, 2, content);
 }
 
 /**
@@ -75,13 +61,18 @@ function collapseComments(e) {
             e.classList.add("active");
         } else {
             $.getJSON("/comment/" + id, function (data) {
+                // console.log(data)
+                console.log(data.data.reverse())
+
                 $.each(data.data.reverse(), function (index, comment) {
                     var mediaLeftElement = $("<div/>", {
                         "class": "media-left"
                     }).append($("<img/>", {
                         "class": "media-object img-rounded",
-                        "src": comment.user.avatarUrl
+                        "src": comment.user.headImg
                     }));
+
+                    // console.log(timetrans(comment.gmtCreate))
 
                     var mediaBodyElement = $("<div/>", {
                         "class": "media-body"
@@ -94,7 +85,8 @@ function collapseComments(e) {
                         "class": "menu"
                     }).append($("<span/>", {
                         "class": "pull-right",
-                        "html": moment(comment.gmtCreate).format('YYYY-MM-DD')
+                        "html": timetrans(comment.gmtCreate)
+                            // moment(comment.gmtCreate).format('YYYY-MM-DD')
                     })));
 
                     var mediaElement = $("<div/>", {
@@ -117,6 +109,14 @@ function collapseComments(e) {
     }
 }
 
+
+function comment(e) {
+    var commentId = e.getAttribute("data-id");
+    var content = $("#input-" + commentId).val();
+    comment2target(commentId, 2, content);
+}
+
+
 function showSelectTag() {
     $("#select-tag").show();
 }
@@ -131,4 +131,15 @@ function selectTag(e) {
             $("#tag").val(value);
         }
     }
+}
+
+function timetrans(date){
+    var date = new Date(date);//如果date为13位不需要乘1000
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+    var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+    var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+    var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+    return Y+M+D+h+m+s;
 }

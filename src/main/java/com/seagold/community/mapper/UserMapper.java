@@ -14,8 +14,7 @@ import com.seagold.community.entity.User;
 
 /**
  * 〈一句话功能简述〉<br> 
- * 〈〉
- *
+ * 〈对用户实体类进行操作的接口〉
  * @author xjh
  * @create 2019-08-15
  * @since 1.0.0

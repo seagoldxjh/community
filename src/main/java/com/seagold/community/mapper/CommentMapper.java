@@ -1,7 +1,7 @@
 /**
- * FileName: QuestionMapper
+ * FileName: CommentMapper
  * Author:   xjh
- * Date:     2019-08-15 19:42
+ * Date:     2019-08-17 12:37
  * Description:
  * History:
  * <author>          <time>          <version>          <desc>
@@ -10,15 +10,16 @@
 package com.seagold.community.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.seagold.community.entity.Question;
+import com.seagold.community.entity.Comment;
 
 /**
  * 〈一句话功能简述〉<br> 
- * 〈对问题实体类进行操作的接口〉
+ * 〈对评论实体类进行操作的接口〉
  *
  * @author xjh
- * @create 2019-08-15
+ * @create 2019-08-17
  * @since 1.0.0
  */
-public interface QuestionMapper extends BaseMapper<Question> {
+public interface CommentMapper extends BaseMapper<Comment> {
+
 }

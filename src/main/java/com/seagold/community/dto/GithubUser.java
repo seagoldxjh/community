@@ -14,6 +14,7 @@ import lombok.Data;
 /**
  * 〈一句话功能简述〉<br> 
  * 〈GitHub用户类〉
+ *  github返回用户的参数,供我们挑选组装成自己的user类
  *
  * @author xjh
  * @create 2019-08-15

@@ -32,11 +32,12 @@ public interface QuestionService {
      * @param id
      * @return
      */
-    List<Question> findAllByCreator(Integer id);
-    QuestionDTO findById(Integer id);
+    List<Question> findAllByCreator(Long id);
+    QuestionDTO findById(Long id);
 
 
     void updata(Question question);
 
-    void incView(Integer id);
+    void incView(Long id);
+    void incCommentCount(Long id);
 }

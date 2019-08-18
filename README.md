@@ -107,4 +107,55 @@ public class MybatisConfig {
    - 用户请求通知列表,生成
       User评论你的（问题 or 评论）
      用户请求某条通知时，转发请求到Question页面并将该通知状态置为已读
+     
+## 集成富文本编辑器（支持Markdown）
+1. [开源在线 Markdown 编辑器](https://pandao.github.io/editor.md/)
+2. 引入依赖,添加可嵌入的 Markdown 在线编辑器（组件）
+```javascript
+<link rel="stylesheet" href="editormd/css/editormd.css" />
+<div id="test-editor">
+    <textarea style="display:none;">### 关于 Editor.md
+
+**Editor.md** 是一款开源的、可嵌入的 Markdown 在线编辑器（组件），基于 CodeMirror、jQuery 和 Marked 构建。
+    </textarea>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="editormd/editormd.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var editor = editormd("test-editor", {
+            // width  : "100%",
+            // height : "100%",
+            path   : "editormd/lib/"
+        });
+    });
+</script>
+
+<script type="text/javascript">
+   $(function () {
+       var editor = editormd("question-editor", {
+           width: "100%",
+           height: 350,
+           path: "/js/lib/",
+           delay: 0,
+           watch: false,
+           placeholder: "请输入问题描述",
+           imageUpload: true,
+           imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+           imageUploadURL: "/file/upload",
+       });
+   });
+</script>
+```
+3. MarkDown To Html
+```javascript
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="question-view">
+    <textarea style="display:none;" th:text="${question.description}"></textarea>
+</div>
+<script type="text/javascript">
+    $(function () {
+        editormd.markdownToHTML("question-view", {});
+    });
+</script>
+```
 

@@ -75,7 +75,7 @@ public class MybatisConfig {
         return new OptimisticLockerInterceptor();
 }
 ```
-2. 使用thymeleaf+Bootstrap解析数据解析美化
+2. 使用thymeleaf+Bootstrap+Jquery解析数据解析美化
 所用文档链接:
 - [MyBatisPlus文档]https://mp.baomidou.com/
 - [Bootstrap文档]https://v3.bootcss.com/css/
@@ -89,6 +89,22 @@ public class MybatisConfig {
 2. 问题显示页面
    - 首次进入问题页面应保证效率,仅展示一级评论,即问题的回复
    - 每条评论显示有点赞数及评论数,用户可点击评论查看二级评论,并显示出二级评论窗口
+   
+## Redis中tag标签库完善
+1. 可以将标签全部放入Redis数据库中
+2. 不允许提交问题时输入非法标签
+3. 焦点移动到标签时,弹出标签库，用户选择符合自己的标签进行添加
 
-
+## 通知回复功能模块
+1. 采用RabbitMQ如何实现此功能？
+   - 每条评论创建时,将通知纳入Queue中,交换器及队列如何设计,如何保证每个用户都能获取到自己的通知
+   - 使用@RabbitListener获取队列中的数据
+2. createNotification
+   - 每当有一次评论请求成功时,同时创建一条通知,保存parrent_id问题的id,设置状态为未读,在通知页面显示评论内容及评论人
+   - 使用Spring事务进行管理,保证评论与通知的原子性
+3. 通知条数及内容展示
+   - 使用拦截器查询当前用户在数据库中通知的未读条数,放入Session中
+   - 用户请求通知列表,生成
+      User评论你的（问题 or 评论）
+     用户请求某条通知时，转发请求到Question页面并将该通知状态置为已读
 

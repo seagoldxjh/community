@@ -33,6 +33,9 @@ public interface QuestionService {
      * @return
      */
     List<Question> findAllByCreator(Long id);
+
+    List<Question> searchQuestions(String search);
+
     QuestionDTO findById(Long id);
 
 

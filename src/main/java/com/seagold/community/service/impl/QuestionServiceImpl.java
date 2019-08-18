@@ -84,6 +84,11 @@ public class QuestionServiceImpl implements QuestionService {
         return questionMapper.selectByMap(map);
     }
 
+    @Override
+    public List<Question> searchQuestions(String search) {
+        return questionMapper.selectList(new QueryWrapper<Question>().like("title", search).orderByDesc("id"));
+    }
+
     /**
      * 根据问题的id查询该问题的所有信息，在封装一个发起问题用户的个人信息
      * @param id

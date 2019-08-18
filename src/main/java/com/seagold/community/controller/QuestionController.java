@@ -152,7 +152,23 @@ public class QuestionController {
         List<Question> all = questionService.findAllQuestion();
         PageInfo<Question> pageInfo = new PageInfo<>(all);
         model.addAttribute("questions", pageInfo);
-        //return pageInfo;
+        return "index";
+    }
+
+
+    /**
+     * 用户搜索问题
+     */
+    @RequestMapping("/searchQuestions")
+    public String searchQuestions(@RequestParam(value = "page",defaultValue = "1") int page,
+                                  @RequestParam(value = "size",defaultValue = "10") int size,
+                                  @RequestParam(value = "search") String search,
+                                  Model model){
+        PageHelper.startPage(page, size);
+        List<Question> questions = questionService.searchQuestions(search);
+        PageInfo<Question> pageInfo = new PageInfo<>(questions);
+        model.addAttribute("questions", pageInfo);
+
         return "index";
     }
 

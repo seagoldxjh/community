@@ -15,7 +15,7 @@
 
     <div class="container-fluid main" style="border-radius:10px; box-shadow:0px 0px 16px 5px #ccc; ">
         <div class="row">
-            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                 <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 发现</h2>
                 <hr>
                 <div class="media" th:each="question : ${questions.list}">
@@ -72,7 +72,30 @@
                 </nav>
             </div>
 
-            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-left: 60px;">
+
+
+                <div>
+                    <!--二维码-->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 side">
+                        <h4>支持作者,送一杯卡布奇诺把～</h4>
+                        <img class="img-thumbnail question-wechat" src="/images/dali.gif">
+                    </div>
+                    <!--二维码-->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 side">
+                        <a href="http://gk.link/a/103Vl" target="_blank">
+                            <img class="img-thumbnail question-wechat" src="/images/dali.jpg">
+                        </a>
+                    </div>
+                    <!--二维码-->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 side">
+                        <a href="https://gio.ren/w/nP2AqLRm" target="_blank">
+                            <img class="img-thumbnail question-wechat" src="/images/dali.jpg">
+                        </a>
+                    </div>
+                </div>
+
+
                 <h2>热门标签</h2>
             </div>
         </div>

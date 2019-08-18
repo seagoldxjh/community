@@ -57,15 +57,6 @@ public class NotificationController {
             return "redirect:/question/" + notificationDTO.getOuterid();
         }
 
-        /*if (NotificationTypeEnum.REPLY_COMMENT.getType() == notificationDTO.getType()) {
-            Long questionId = notificationDTO.getOuterid();
-            Question question = questionMapper.selectById(questionId);
-            System.out.println(question);
-            if(question == null){
-                return "error";
-            }
-            return "redirect:/question/" + question.getId();
-        }*/
 
         return null;
     }

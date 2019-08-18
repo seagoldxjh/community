@@ -8,6 +8,13 @@
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/community.js"></script>
+
+
+    <link rel="stylesheet" href="/css/editormd.min.css">
+    <link rel="stylesheet" href="/css/editormd.preview.min.css">
+    <script src="/js/editormd.min.js" type="application/javascript"></script>
+    <script src="/js/lib/marked.min.js"></script>
+    <script src="/js/lib/prettify.min.js"></script>
 </head>
 <body>
     <div th:insert="~{navigation :: nav}"></div>
@@ -22,10 +29,26 @@
                         <label for="title">问题标题（简要概述）:</label>
                         <input class="form-control" id="title" name="title" placeholder="问题标题" th:value="${title}" autocomplete="off">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="question-editor">
                         <label for="description">问题补充(必填,请参考右侧提示):</label>
-                        <textarea rows="10" cols="30" id="description" name="description" class="form-control" th:text="${description}"></textarea>
+                        <textarea rows="10" cols="30"  name="description"
+                                  id="description" class="form-control" th:text="${description}" style="display: none;"></textarea>
                     </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            var editor = editormd("question-editor", {
+                                width: "100%",
+                                height: 350,
+                                path: "/js/lib/",
+                                delay: 0,
+                                watch: false,
+                                placeholder: "请输入问题描述",
+                                imageUpload: true,
+                                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                                imageUploadURL: "/file/upload",
+                            });
+                        });
+                    </script>
                     <div class="form-group">
                         <label for="tag">添加标签</label>
                         <input class="form-control" id="tag" name="tag" placeholder="输入标签,以,分割" th:value="${tag}" autocomplete="off" onclick="showSelectTag()">
@@ -67,11 +90,13 @@
             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                 <h3>问题发起指南</h3>
                 <br>
-                • 问题标题: 请用精简的语言描述您发布的问题，不超过25字 <br>
-                • 问题补充: 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料<br>
-                • 选择标签: 选择一个或者多个合适的标签，用逗号隔开，每个标签不超过10个字<br>
+                • 问题标题: 请用精简的语言描述您发布的问题，不超过25字 <br> <br>
+                • 问题补充: 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料<br> <br>
+                • 选择标签: 选择一个或者多个合适的标签，用逗号隔开，每个标签不超过10个字<br> <br>
+                • 支持MarkDown格式: 可以点击眼睛预览（取消预览哦）<br> <br>
             </div>
         </div>
     </div>
 </body>
+
 </html>

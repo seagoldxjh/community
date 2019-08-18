@@ -81,3 +81,14 @@ public class MybatisConfig {
 - [Bootstrap文档]https://v3.bootcss.com/css/
 - [SpringBoot文档]https://spring.io/
 
+
+## 多级回复及评论观看数功能模块
+1. 数据表设计采用单表设计
+   - 通过type属性指定评论为问题评论还是评论回复
+   - 通过parent_id在单表中指定级联关系
+2. 问题显示页面
+   - 首次进入问题页面应保证效率,仅展示一级评论,即问题的回复
+   - 每条评论显示有点赞数及评论数,用户可点击评论查看二级评论,并显示出二级评论窗口
+
+
+

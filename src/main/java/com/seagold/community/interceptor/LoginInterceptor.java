@@ -9,6 +9,8 @@
  */
 package com.seagold.community.interceptor;
 
+import com.seagold.community.entity.User;
+import com.seagold.community.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -31,6 +33,9 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Autowired
     RedisTemplate<Object,Object> redisTemplate;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
@@ -43,10 +48,12 @@ public class LoginInterceptor implements HandlerInterceptor {
         for (Cookie cookie : cookies) {
             if("token".equals(cookie.getName())){
                 String token = cookie.getValue();
-                Object o = redisTemplate.opsForValue().get(token);
+                User o = (User)redisTemplate.opsForValue().get(token);
                 System.out.println(o);
                 if(o != null){
                     request.getSession().setAttribute("user", o);
+                    Integer unreadCount = notificationService.unreadCount(o.getId());
+                    request.getSession().setAttribute("unreadCount",unreadCount);
                 }
                 break;
             }

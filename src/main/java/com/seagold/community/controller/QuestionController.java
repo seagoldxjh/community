@@ -9,8 +9,10 @@
  */
 package com.seagold.community.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.seagold.community.cache.TagCache;
 import com.seagold.community.dto.CommentUserDTO;
 import com.seagold.community.dto.QuestionDTO;
 import com.seagold.community.entity.Question;
@@ -67,7 +69,7 @@ public class QuestionController {
         model.addAttribute("title", title);
         model.addAttribute("description", description);
         model.addAttribute("tag", tag);
-        //model.addAttribute("tags", TagCache.get());
+        model.addAttribute("tags", TagCache.get());
 
         if (title == null || title == "") {
             model.addAttribute("error", "标题不能为空");
@@ -82,11 +84,11 @@ public class QuestionController {
             return "publish";
         }
 
-//        String invalid = TagCache.filterInvalid(tag);
-//        if (StringUtils.isNotBlank(invalid)) {
-//            model.addAttribute("error", "输入非法标签:" + invalid);
-//            return "publish";
-//        }
+        String invalid = TagCache.filterInvalid(tag);
+        if (StringUtils.isNotEmpty(invalid)) {
+            model.addAttribute("error", "输入非法标签:" + invalid);
+            return "publish";
+        }
 
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
@@ -125,6 +127,13 @@ public class QuestionController {
         model.addAttribute("description", questionDTO.getDescription());
         model.addAttribute("tag", questionDTO.getTag());
         model.addAttribute("id", questionDTO.getId());
+        model.addAttribute("tags", TagCache.get());
+        return "publish";
+    }
+
+    @GetMapping("/publish")
+    public String publish(Model model){
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 
@@ -159,8 +168,12 @@ public class QuestionController {
         QuestionDTO question = questionService.findById(id);
         model.addAttribute("question", question);
 
+
         List<CommentUserDTO> comments = commentService.findAllById(id, 1);
         model.addAttribute("comments",comments);
+
+        List<Question> relatedQuestions = questionService.selectRelated(question.getTag());
+        model.addAttribute("relatedQuestions",relatedQuestions);
 
         return "question";
     }

@@ -11,8 +11,10 @@ package com.seagold.community.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.seagold.community.dto.NotificationUserDTO;
 import com.seagold.community.entity.Question;
 import com.seagold.community.entity.User;
+import com.seagold.community.service.NotificationService;
 import com.seagold.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +40,9 @@ public class ProfileController {
     @Autowired
     private QuestionService questionService;
 
+    @Autowired
+    private NotificationService notificationService;
+
     /**
      * 用户查询自己发起的提问及查询自己的回复
      * @param action
@@ -60,15 +65,20 @@ public class ProfileController {
         }
 
         if ("questions".equals(action)){
-            model.addAttribute("section", action);
+            model.addAttribute("section","questions");
             model.addAttribute("sectionName", "我的提问");
             PageHelper.startPage(page, size);
             List<Question> all = questionService.findAllByCreator(user.getId());
             PageInfo<Question> pageInfo = new PageInfo<>(all);
-            model.addAttribute("questions", pageInfo);
+            model.addAttribute("pageInfo", pageInfo);
         }else if ("replies".equals(action)){
             model.addAttribute("section", "replies");
-            model.addAttribute("sectionName", "我的回复");
+            model.addAttribute("sectionName", "最新回复");
+            PageHelper.startPage(page, size);
+            List<NotificationUserDTO> all = notificationService.findAllById(user.getId());
+            PageInfo<NotificationUserDTO> pageInfo = new PageInfo<>(all);
+            model.addAttribute("pageInfo", pageInfo);
+
         }
 
 

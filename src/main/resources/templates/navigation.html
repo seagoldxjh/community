@@ -21,8 +21,9 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li th:if="${session.user != null}">
-                    <a href="/publish">发起疑问</a>
+                    <a href="/publish">提问</a>
                 </li>
+                <li><a href="/profile/replies">通知&nbsp;<span class="badge" th:text="${session.unreadCount}">16</span></a></li>
                 <li th:if="${session.user != null}">
                     <img class="media-object img-rounded" th:src="${session.user.headImg}">
                 </li>
@@ -34,7 +35,6 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="/profile/questions">我的问题</a></li>
-                        <!--<li role="separator" class="divider"></li>-->
                         <li><a href="/logout">退出登录</a></li>
                     </ul>
                 </li>

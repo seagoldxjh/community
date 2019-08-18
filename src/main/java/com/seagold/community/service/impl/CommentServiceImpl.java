@@ -15,9 +15,13 @@ import com.seagold.community.dto.CommentDTO;
 import com.seagold.community.dto.CommentUserDTO;
 import com.seagold.community.entity.Comment;
 import com.seagold.community.entity.JsonData;
+import com.seagold.community.entity.Notification;
 import com.seagold.community.entity.Question;
 import com.seagold.community.entity.User;
+import com.seagold.community.enums.NotificationStatusEnum;
+import com.seagold.community.enums.NotificationTypeEnum;
 import com.seagold.community.mapper.CommentMapper;
+import com.seagold.community.mapper.NotificationMapper;
 import com.seagold.community.mapper.QuestionMapper;
 import com.seagold.community.mapper.UserMapper;
 import com.seagold.community.service.CommentService;
@@ -53,6 +57,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private NotificationMapper notificationMapper;
 
     @Override
     @Transactional
@@ -101,8 +108,49 @@ public class CommentServiceImpl implements CommentService {
         questionService.incCommentCount(commentDTO.getParentId());
         commentMapper.insert(comment);
 
+        Question  question = questionMapper.selectById(commentDTO.getParentId());
+        if(question != null){
+            createNotify(comment, question.getCreator(), user.getName(), question.getTitle(), NotificationTypeEnum.REPLY_QUESTION, question.getId());
+        }else {
+
+            Comment comment1 = commentMapper.selectById(comment.getId());
+            Long questionId = commentMapper.selectById(comment1.getParentId()).getParentId();
+
+
+            createNotify(comment, comment.getCommentator(), user.getName(), comment.getContent(), NotificationTypeEnum.REPLY_COMMENT, questionId);
+        }
+
         return JsonData.buildSuccess("成功", comment.toString());
     }
+
+
+
+    private void createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType, Long outerId) {
+        System.out.println("进入创建通知方法");
+
+        if (receiver.equals(comment.getCommentator())) {
+            System.out.println(receiver);
+            System.out.println(comment.getCommentator());
+            return;
+        }
+
+
+        System.out.println("通知创建");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++");
+
+        Notification notification = new Notification();
+        notification.setGmtCreate(System.currentTimeMillis());
+        notification.setType(notificationType.getType());
+        notification.setOuterid(outerId);
+        notification.setNotifier(comment.getCommentator());
+        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
+        notification.setReceiver(receiver);
+        notification.setNotifierName(notifierName);
+        notification.setOuterTitle(outerTitle);
+        notificationMapper.insert(notification);
+    }
+
+
 
     /**
      * 用于展示id的所有评论数据,包括评论人的name，头像，发起评论时间及评论内容

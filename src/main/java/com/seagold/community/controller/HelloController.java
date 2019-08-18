@@ -9,7 +9,7 @@
  */
 package com.seagold.community.controller;
 
-import com.seagold.community.entity.User;
+import com.seagold.community.mapper.QuestionMapper;
 import com.seagold.community.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,14 +29,16 @@ public class HelloController {
     @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    QuestionMapper questionMapper;
+
 
 
     @RequestMapping("/test")
     @ResponseBody
-    public void add(){
-        User user = new User();
-        user.setAccountId("1610501340");
-        user.setName("admin");
-        userMapper.insert(user);
+    public Object add(Long id){
+        return null;
+
+
     }
 }

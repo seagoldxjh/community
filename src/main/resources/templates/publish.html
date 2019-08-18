@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/community.css">
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/community.js"></script>
 </head>
 <body>
     <div th:insert="~{navigation :: nav}"></div>
@@ -19,7 +20,7 @@
                 <form action="/publishQuestion" method="post">
                     <div class="form-group">
                         <label for="title">问题标题（简要概述）:</label>
-                        <input class="form-control" id="title" name="title" placeholder="问题标题" th:value="${title}">
+                        <input class="form-control" id="title" name="title" placeholder="问题标题" th:value="${title}" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="description">问题补充(必填,请参考右侧提示):</label>
@@ -27,7 +28,33 @@
                     </div>
                     <div class="form-group">
                         <label for="tag">添加标签</label>
-                        <input class="form-control" id="tag" name="tag" placeholder="输入标签,以,分割" th:value="${tag}">
+                        <input class="form-control" id="tag" name="tag" placeholder="输入标签,以,分割" th:value="${tag}" autocomplete="off" onclick="showSelectTag()">
+
+                        <div id="select-tag" class="publish-tag-tab">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" th:each="selectCategory,selectCategoryStat: ${tags}"
+                                    th:class="${selectCategoryStat.first ? 'active':''}">
+                                    <a th:href="${'#'+selectCategory.categoryName}" aria-controls="home" role="tab"
+                                       data-toggle="tab" th:text="${selectCategory.categoryName}"></a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div role="tabpanel" th:id="${selectCategory.categoryName}"
+                                     th:each="selectCategory: ${tags}"
+                                     th:class="${selectCategoryStat.first ? 'active tab-pane':'tab-pane'}">
+                                <span>
+                                    <span class="label label-info" th:each="selectTag: ${selectCategory.tags}">
+                                        <span class="glyphicon glyphicon-tags" onclick="selectTag(this)"
+                                              th:data-tag="${selectTag}"
+                                              th:text="${' '+selectTag}">
+                                        </span>
+                                    </span>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                     <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12"
                          th:text="${error}"
@@ -39,6 +66,7 @@
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                 <h3>问题发起指南</h3>
+                <br>
                 • 问题标题: 请用精简的语言描述您发布的问题，不超过25字 <br>
                 • 问题补充: 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料<br>
                 • 选择标签: 选择一个或者多个合适的标签，用逗号隔开，每个标签不超过10个字<br>

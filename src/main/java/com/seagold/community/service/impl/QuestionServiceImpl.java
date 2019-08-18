@@ -10,6 +10,7 @@
 package com.seagold.community.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.StringUtil;
 import com.seagold.community.dto.QuestionDTO;
 import com.seagold.community.entity.Comment;
 import com.seagold.community.entity.Question;
@@ -96,6 +97,8 @@ public class QuestionServiceImpl implements QuestionService {
         question.setViewCount(question.getViewCount() + 1);
         questionMapper.updateById(question);
 
+
+
         User user = userMapper.selectById(question.getCreator());
         BeanUtils.copyProperties(question, questionDTO);
         questionDTO.setUser(user);
@@ -120,6 +123,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     /**
      * 根据id查询到问题，对问题的评论数+1
+     * 回复了评论或者问题也同时发出通知用户回答了问题
      * @param id
      */
     @Override
@@ -133,5 +137,25 @@ public class QuestionServiceImpl implements QuestionService {
             comment.setCommentCount(comment.getCommentCount() + 1);
             commentMapper.updateById(comment);
         }
+    }
+
+    /**
+     * 根据传入标签,并查找与该标签相关的返回
+     * @param tag
+     * @return
+     */
+    @Override
+    public List<Question> selectRelated(String tag) {
+        if (StringUtil.isEmpty(tag)){
+            return new ArrayList<>(0);
+        }
+
+        QueryWrapper<Question> wrapper = new QueryWrapper<Question>();
+        String[] split = tag.split(",");
+
+        for (String s : split) {
+            wrapper.like("tag", s).or();
+        }
+        return questionMapper.selectList(wrapper);
     }
 }

@@ -29,6 +29,14 @@
             </div>
 
 
+            <!--标签-->
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="label label-info question-tag" th:each="tag : ${question.tag.split(',')}">
+                        <span class="glyphicon glyphicon-tags"></span>
+                        <span class="label label-info" th:text="${tag}"></span>
+                    </span>
+            </div>
 
             <!--编辑-->
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -39,7 +47,6 @@
                     编辑
                 </a>
             </div>
-            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
 
             <!--回复-->
@@ -119,7 +126,7 @@
         </div>
 
         <!--右侧布局-->
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-left: 30px;">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="margin-left: 30px; margin-top: 10px;">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>发起人</h4>
                 <div class="media">
@@ -136,10 +143,44 @@
                     </div>
                 </div>
             </div>
+
+<!-- 广告
+
+            <div>
+                &lt;!&ndash;二维码&ndash;&gt;
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 side">
+                    <h4>码问官方公众号</h4>
+                    <img class="img-thumbnail question-wechat" src="/images/official-account.png">
+                </div>
+                &lt;!&ndash;二维码&ndash;&gt;
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 side">
+                    <a href="http://gk.link/a/103Vl" target="_blank"
+                       onclick="gtag('event', 'click', {'event_category': 'LINK','event_label': 'GEEKTIME','transport_type': 'SIDE'})">
+                        <img class="img-thumbnail question-wechat" src="/images/geektime.jpeg">
+                    </a>
+                </div>
+                &lt;!&ndash;二维码&ndash;&gt;
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 side">
+                    <a href="https://gio.ren/w/nP2AqLRm" target="_blank"
+                       onclick="gtag('event', 'click', {'event_category': 'LINK','event_label': 'WONDERCR','transport_type': 'SIDE'})">
+                        <img class="img-thumbnail question-wechat" src="/images/wondercv.png">
+                    </a>
+                </div>
+            </div>
+
+-->
+
+
+
+            <!-- 相关问题 -->
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h4>相关问题</h4>
-
+                <h3>相关问题</h3>
+                <ul class="question-related">
+                    <li th:each="related : ${relatedQuestions}" style="margin: 8px;">
+                        <a th:href="@{'/question/'+ ${related.id}}" th:text="${related.title}"></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

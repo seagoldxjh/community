@@ -40,4 +40,6 @@ public interface QuestionService {
 
     void incView(Long id);
     void incCommentCount(Long id);
+
+    List<Question> selectRelated(String tag);
 }

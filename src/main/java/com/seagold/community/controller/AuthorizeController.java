@@ -14,6 +14,7 @@ import com.seagold.community.dto.GithubUser;
 import com.seagold.community.entity.User;
 import com.seagold.community.provider.GithubProvider;
 import com.seagold.community.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,7 @@ import java.util.UUID;
  * @since 1.0.0
  */
 @Controller
+@Slf4j
 public class AuthorizeController {
 
     @Autowired
@@ -115,6 +117,8 @@ public class AuthorizeController {
             userService.autoLogin(user);
             return "redirect:/";
         } else {
+
+            log.error("callback get github user error,{}",githubUser);
             return "redirect:/";
         }
 

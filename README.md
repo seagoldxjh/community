@@ -159,3 +159,10 @@ public class MybatisConfig {
 </script>
 ```
 
+## 环境切换
+1. Git Oauth地址切换
+2. login redirect_uri地址切换
+3. application.properties
+   - github.redirect.uri地址切换
+   - http://localhost:8080/callback
+

@@ -166,4 +166,8 @@ public class MybatisConfig {
 3. application.properties
    - github.redirect.uri地址切换
    - http://localhost:8080/callback
+   
+## 一周最热话题
+1. 引入定时任务
+2. 根据浏览量 or 评论数查询一周内数量最高的50条数据
 

@@ -1,5 +1,6 @@
 # 社区搭建
 community of study
+### [社区地址](http://129.211.52.132)
 
 ## github授权登陆模块
 1. 用户点击登陆按钮，请求github提供的authorize接口，需要提供的参数
@@ -158,4 +159,15 @@ public class MybatisConfig {
     });
 </script>
 ```
+
+## 环境切换
+1. Git Oauth地址切换
+2. login redirect_uri地址切换
+3. application.properties
+   - github.redirect.uri地址切换
+   - http://localhost:8080/callback
+   
+## 一周最热话题
+1. 引入定时任务
+2. 根据浏览量 or 评论数查询一周内数量最高的50条数据
 

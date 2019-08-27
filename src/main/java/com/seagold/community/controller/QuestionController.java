@@ -12,6 +12,7 @@ package com.seagold.community.controller;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.seagold.community.cache.HotTagCache;
 import com.seagold.community.cache.TagCache;
 import com.seagold.community.dto.CommentUserDTO;
 import com.seagold.community.dto.QuestionDTO;
@@ -48,6 +49,9 @@ public class QuestionController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private HotTagCache hotTagCache;
 
     /**
      * post方式提交用户发起的问题
@@ -152,6 +156,7 @@ public class QuestionController {
         List<Question> all = questionService.findAllQuestion();
         PageInfo<Question> pageInfo = new PageInfo<>(all);
         model.addAttribute("questions", pageInfo);
+        model.addAttribute("tags",hotTagCache.getHots());
         return "index";
     }
 
@@ -168,7 +173,7 @@ public class QuestionController {
         List<Question> questions = questionService.searchQuestions(search);
         PageInfo<Question> pageInfo = new PageInfo<>(questions);
         model.addAttribute("questions", pageInfo);
-
+        model.addAttribute("tags",hotTagCache.getHots());
         return "index";
     }
 

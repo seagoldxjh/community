@@ -45,4 +45,6 @@ public interface QuestionService {
     void incCommentCount(Long id);
 
     List<Question> selectRelated(String tag);
+
+    List<Question> searchQuestionsByTag(String tag);
 }

@@ -163,4 +163,9 @@ public class QuestionServiceImpl implements QuestionService {
         }
         return questionMapper.selectList(wrapper);
     }
+
+    @Override
+    public List<Question> searchQuestionsByTag(String tag) {
+        return questionMapper.selectList(new QueryWrapper<Question>().like("tag",tag));
+    }
 }

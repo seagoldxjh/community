@@ -177,6 +177,19 @@ public class QuestionController {
         return "index";
     }
 
+    @RequestMapping("/searchQuestionsByTag")
+    public String searchQuestionsByTag(@RequestParam(value = "page",defaultValue = "1") int page,
+                                       @RequestParam(value = "size",defaultValue = "10") int size,
+                                       @RequestParam(value = "tag") String tag,
+                                       Model model){
+        PageHelper.startPage(page, size);
+        List<Question> questions = questionService.searchQuestionsByTag(tag);
+        PageInfo<Question> pageInfo = new PageInfo<>(questions);
+        model.addAttribute("questions", pageInfo);
+        model.addAttribute("tags",hotTagCache.getHots());
+        return "index";
+    }
+
     /**
      * 根据id查询问题返回问题及发起问题的用户数据
      * 查询question中id=？的type=1的所有评论，表示评论为评论问题，而不是二级评论

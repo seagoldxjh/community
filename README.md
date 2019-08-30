@@ -167,6 +167,16 @@ public class MybatisConfig {
    - github.redirect.uri地址切换
    - http://localhost:8080/callback
    
+## 每日热门标签
+1. 引入定时任务并开启
+@Scheduled(cron = "0 0 12 * * ?"),每日中午12点执行一次该注解任务
+2. 计算标签权重
+查询所有问题中标签的出现次数及该问题的回复数，按权重计算放入map中
+3. HotTagDTO对象实现Comparable接口
+对产生对map对象进行排序,放入List中并存入Redis数据库
+4. 访问首页曲中redis数据库中热门标签展示
+ 
+   
 ## 一周最热话题
 1. 引入定时任务
 2. 根据浏览量 or 评论数查询一周内数量最高的50条数据

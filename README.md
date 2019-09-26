@@ -183,5 +183,5 @@ public class MybatisConfig {
 
 ## B站视频引入
 
-## 未完待续。。。...
+## 未完待续...
 

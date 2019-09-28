@@ -52,7 +52,7 @@ for (Cookie cookie : cookies) {
 }
 ```
 
-## 社区帖子的发布,修改,分页展示模块
+## 社区帖子发布,修改,分页展示模块
 1. 集成PageHelper分页插件,并配置bean,采用MybatisPlus为Mybatis做增强操作，减少项目大量SQL
 ```java
 @Configuration

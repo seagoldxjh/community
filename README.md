@@ -99,7 +99,7 @@ public class MybatisConfig {
 ## 通知回复功能模块
 1. 采用RabbitMQ如何实现此功能？
    - 每条评论创建时,将通知纳入Queue中,交换器及队列如何设计,如何保证每个用户都能获取到自己的通知
-   - 使用@RabbitListener获取队列中的数据
+   - 使用@RabbitListener获取队列中的数据.
 2. createNotification
    - 每当有一次评论请求成功时,同时创建一条通知,保存parrent_id问题的id,设置状态为未读,在通知页面显示评论内容及评论人
    - 使用Spring事务进行管理,保证评论与通知的原子性

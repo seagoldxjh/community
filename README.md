@@ -1,4 +1,4 @@
-# 社区搭建
+# 交流社区
 community of study
 ### [社区地址](http://...)
 

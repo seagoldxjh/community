@@ -78,9 +78,9 @@ public class MybatisConfig {
 ```
 2. 使用thymeleaf+Bootstrap+Jquery解析数据解析美化
 所用文档链接:
-- [MyBatisPlus文档]https://mp.baomidou.com/
-- [Bootstrap文档]https://v3.bootcss.com/css/
-- [SpringBoot文档]https://spring.io/
+- [MyBatisPlus文档](https://mp.baomidou.com/)
+- [Bootstrap文档](https://v3.bootcss.com/css/)
+- [SpringBoot文档](https://spring.io/)
 
 
 ## 多级回复及评论观看数功能模块

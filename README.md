@@ -169,7 +169,7 @@ public class MybatisConfig {
    
 ## 每日热门标签
 1. 引入定时任务并开启
-@Scheduled(cron = "0 0 12 * * ?"),每日中午12点执行一次该注解任务
+@Scheduled(cron = "0 0 12 * * ?"),每日中午12点执行一次该注解任务 
 2. 计算标签权重
 查询所有问题中标签的出现次数及该问题的回复数，按权重计算放入map中
 3. HotTagDTO对象实现Comparable接口

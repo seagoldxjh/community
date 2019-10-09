@@ -174,7 +174,7 @@ public class MybatisConfig {
 查询所有问题中标签的出现次数及该问题的回复数，按权重计算放入map中
 3. HotTagDTO对象实现Comparable接口
 对产生对map对象进行排序,放入List中并存入Redis数据库
-4. 访问首页曲中redis数据库中热门标签展示
+4. 访问首页曲中redis数据库中热门标签展示 
  
    
 ## 一周最热话题

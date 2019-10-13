@@ -5,7 +5,7 @@ community of study
 ## github授权登陆模块（OAuth2.0）
 1. 用户点击登陆按钮，请求github提供的authorize接口，需要提供的参数
    - client_id: github生成的
-   - redirect_uri: 自己设置的回调接口地址
+   - redirect_uri: 自己设置的回调接口地址 
    - state=1
    - scope=user
 2. github自动跳转到我们设置的callback接口中，并且携带参数code

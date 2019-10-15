@@ -9,7 +9,7 @@ community of study
    - state=1
    - scope=user
 2. github自动跳转到我们设置的callback接口中，并且携带参数code
-3. 我们继续调用github提供的access_token接口，需要提供参数，将数据穿的的参数封装为AccessTokenDTO对象
+3. 我们继续调用github提供的access_token接口，需要提供参数，将数据穿的的参数封装为AccessTokenDTO对象 
    - Client_id: github生成的
    - Client_secret: github生成的
    - Code: github: 回调提供的参数

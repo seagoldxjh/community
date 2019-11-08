@@ -1,15 +1,15 @@
-# 社区搭建
-community of study
-### [社区地址](http://129.211.52.132)
+# 交流社区 
+community of study  
+### [社区地址](http://...)   
 
-## github授权登陆模块
+## github授权登陆模块（OAuth2.0）
 1. 用户点击登陆按钮，请求github提供的authorize接口，需要提供的参数
    - client_id: github生成的
-   - redirect_uri: 自己设置的回调接口地址
-   - state=1
+   - redirect_uri: 自己设置的回调接口地址 
+   - state=1 
    - scope=user
 2. github自动跳转到我们设置的callback接口中，并且携带参数code
-3. 我们继续调用github提供的access_token接口，需要提供参数，将数据穿的的参数封装为AccessTokenDTO对象
+3. 我们继续调用github提供的access_token接口，需要提供参数，将数据穿的的参数封装为AccessTokenDTO对象 
    - Client_id: github生成的
    - Client_secret: github生成的
    - Code: github: 回调提供的参数
@@ -52,7 +52,7 @@ for (Cookie cookie : cookies) {
 }
 ```
 
-## 社区帖子的发布,修改,分页展示模块
+## 社区帖子发布,修改,分页展示模块
 1. 集成PageHelper分页插件,并配置bean,采用MybatisPlus为Mybatis做增强操作，减少项目大量SQL
 ```java
 @Configuration
@@ -78,9 +78,9 @@ public class MybatisConfig {
 ```
 2. 使用thymeleaf+Bootstrap+Jquery解析数据解析美化
 所用文档链接:
-- [MyBatisPlus文档]https://mp.baomidou.com/
-- [Bootstrap文档]https://v3.bootcss.com/css/
-- [SpringBoot文档]https://spring.io/
+- [MyBatisPlus文档](https://mp.baomidou.com/)
+- [Bootstrap文档](https://v3.bootcss.com/css/)
+- [SpringBoot文档](https://spring.io/)
 
 
 ## 多级回复及评论观看数功能模块
@@ -93,13 +93,13 @@ public class MybatisConfig {
    
 ## Redis中tag标签库完善
 1. 可以将标签全部放入Redis数据库中
-2. 不允许提交问题时输入非法标签
+2. 不允许提交问题时输入非法标签 
 3. 焦点移动到标签时,弹出标签库，用户选择符合自己的标签进行添加
 
 ## 通知回复功能模块
 1. 采用RabbitMQ如何实现此功能？
    - 每条评论创建时,将通知纳入Queue中,交换器及队列如何设计,如何保证每个用户都能获取到自己的通知
-   - 使用@RabbitListener获取队列中的数据
+   - 使用@RabbitListener获取队列中的数据.
 2. createNotification
    - 每当有一次评论请求成功时,同时创建一条通知,保存parrent_id问题的id,设置状态为未读,在通知页面显示评论内容及评论人
    - 使用Spring事务进行管理,保证评论与通知的原子性
@@ -169,15 +169,19 @@ public class MybatisConfig {
    
 ## 每日热门标签
 1. 引入定时任务并开启
-@Scheduled(cron = "0 0 12 * * ?"),每日中午12点执行一次该注解任务
+@Scheduled(cron = "0 0 12 * * ?"),每日中午12点执行一次该注解任务 
 2. 计算标签权重
 查询所有问题中标签的出现次数及该问题的回复数，按权重计算放入map中
 3. HotTagDTO对象实现Comparable接口
 对产生对map对象进行排序,放入List中并存入Redis数据库
-4. 访问首页曲中redis数据库中热门标签展示
+4. 访问首页曲中redis数据库中热门标签展示 
  
    
 ## 一周最热话题
 1. 引入定时任务
 2. 根据浏览量 or 评论数查询一周内数量最高的50条数据
+
+## B站API引入视频
+
+## 未完待续...
 

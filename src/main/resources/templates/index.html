@@ -28,7 +28,7 @@
                 <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 发现</h2>
 
                 <ul class="nav nav-tabs">
-                    <li role="presentation" class="active">
+                    <li role="presentation" th:class="${sort == 'new' || sort == '' ? 'active':''}">
                         <a href="/">最新</a>
                     </li>
                     <li role="presentation" th:class="${sort == 'hot30' ? 'active':''}">

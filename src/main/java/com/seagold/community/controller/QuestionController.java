@@ -153,7 +153,7 @@ public class QuestionController {
                         @RequestParam(value = "size",defaultValue = "10") int size,
                         @RequestParam(name = "search", required = false) String search,
                         @RequestParam(name = "tag", required = false) String tag,
-                        @RequestParam(name = "sort", required = false) String sort,
+                        @RequestParam(name = "sort", defaultValue = "") String sort,
                         Model model){
         PageHelper.startPage(page, size);
         //List<Question> all = questionService.findAllQuestion();

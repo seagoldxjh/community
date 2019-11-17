@@ -24,7 +24,7 @@ import java.util.List;
  */
 public interface QuestionService {
     void insertQuestion(Question question);
-    List<QuestionDTO> findAll();
+    List<Question> findAll(String search,String tag,String sort);
     List<Question> findAllQuestion();
 
     /**
@@ -47,4 +47,6 @@ public interface QuestionService {
     List<Question> selectRelated(String tag);
 
     List<Question> searchQuestionsByTag(String tag);
+
+    List<Question> searchQuestionsBySort(String sort);
 }

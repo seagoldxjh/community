@@ -2,13 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>搬砖社区</title>
+    <title>码农社区</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/community.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 </head>
+<script type="application/javascript">
+    window.onload = function () {
+        var closable = window.localStorage.getItem("closable");
+        if (closable == "true") {
+            window.close();
+            window.localStorage.removeItem("closable");
+        }
+    }
+</script>
 <body>
 
     <div th:insert="~{navigation :: nav}"></div>
@@ -17,7 +26,25 @@
         <div class="row">
             <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                 <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 发现</h2>
-                <hr>
+
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active">
+                        <a href="/">最新</a>
+                    </li>
+                    <li role="presentation" th:class="${sort == 'hot30' ? 'active':''}">
+                        <a th:href="@{/sort(sort='hot30')}">30天最热</a>
+                    </li>
+                    <li role="presentation" th:class="${sort == 'hot7' ? 'active':''}">
+                        <a th:href="@{/sort(sort='hot7')}">7天最热</a>
+                    </li>
+                    <li role="presentation" th:class="${sort == 'hot' ? 'active':''}">
+                        <a th:href="@{/sort(sort='hot')}">最热</a>
+                    </li>
+                    <li role="presentation" th:class="${sort == 'no' ? 'active':''}">
+                        <a th:href="@{/sort(sort='no')}" class="red">消灭零回复</a>
+                    </li>
+                </ul>
+
                 <div class="media" th:each="question : ${questions.list}">
                     <div class="media-left">
                         <a href="#">
@@ -44,7 +71,7 @@
                         </li>
                         <!--当前页数是否还有上一页，如果不是则出现上一页标志-->
                         <li th:if="${questions.hasPreviousPage}">
-                            <a th:href="@{/(page=${questions.pageNum - 1})}" aria-label="Previous">
+                            <a th:href="@{/(page=${questions.pageNum - 1},search=${search},tag=${tag},sort=${sort})}" aria-label="Previous">
                                 <span aria-hidden="true">&lt;</span>
                             </a>
                         </li>
@@ -52,19 +79,19 @@
                         <!--循环展示页数-->
                         <li th:each="navigatepageNum : ${questions.navigatepageNums}" th:class="${navigatepageNum == questions.pageNum} ? 'active' : ''">
                             <a th:text="${navigatepageNum}"
-                               th:href="@{/(page=${navigatepageNum})}">
+                               th:href="@{/(page=${navigatepageNum},search=${search},tag=${tag},sort=${sort})}">
                             </a>
                         </li>
 
                         <!--当前页数是否还有下一页，如果不是则出现下一页标志-->
                         <li th:if="${questions.hasNextPage}">
-                            <a th:href="@{/(page=${questions.pageNum + 1})}" aria-label="Next">
+                            <a th:href="@{/(page=${questions.pageNum + 1},search=${search},tag=${tag},sort=${sort})}" aria-label="Next">
                                 <span aria-hidden="true">&gt;</span>
                             </a>
                         </li>
                         <!--当前页数是否是尾页，如果不是则出现尾页标志-->
                         <li th:if="${!questions.isLastPage}">
-                            <a aria-label="Previous" th:href="@{/(page=${questions.pages})}">
+                            <a aria-label="Previous" th:href="@{/(page=${questions.pages},search=${search},tag=${tag},sort=${sort})}">
                                 <span aria-hidden="true">尾页</span>
                             </a>
                         </li>

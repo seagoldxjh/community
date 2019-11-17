@@ -151,12 +151,19 @@ public class QuestionController {
     @RequestMapping("/")
     public String hello(@RequestParam(value = "page",defaultValue = "1") int page,
                         @RequestParam(value = "size",defaultValue = "10") int size,
+                        @RequestParam(name = "search", required = false) String search,
+                        @RequestParam(name = "tag", required = false) String tag,
+                        @RequestParam(name = "sort", required = false) String sort,
                         Model model){
         PageHelper.startPage(page, size);
-        List<Question> all = questionService.findAllQuestion();
+        //List<Question> all = questionService.findAllQuestion();
+        List<Question> all = questionService.findAll(search,tag,sort);
         PageInfo<Question> pageInfo = new PageInfo<>(all);
         model.addAttribute("questions", pageInfo);
+        model.addAttribute("tag", tag);
         model.addAttribute("tags",hotTagCache.getHots());
+        model.addAttribute("search", search);
+        model.addAttribute("sort", sort);
         return "index";
     }
 
@@ -187,6 +194,28 @@ public class QuestionController {
         PageInfo<Question> pageInfo = new PageInfo<>(questions);
         model.addAttribute("questions", pageInfo);
         model.addAttribute("tags",hotTagCache.getHots());
+        return "index";
+    }
+
+
+    /**
+     *
+     * @param page
+     * @param size
+     * @param sort 七天最热 or 30天最热 or 最热
+     * @param model
+     * @return
+     */
+    @RequestMapping("/sort")
+    public String searchQuestionsBySort(@RequestParam(value = "page",defaultValue = "1") int page,
+                                       @RequestParam(value = "size",defaultValue = "10") int size,
+                                       @RequestParam(value = "sort") String sort,
+                                       Model model){
+        PageHelper.startPage(page, size);
+        List<Question> questions = questionService.searchQuestionsBySort(sort);
+        PageInfo<Question> pageInfo = new PageInfo<>(questions);
+        model.addAttribute("questions", pageInfo);
+        model.addAttribute("sort",sort);
         return "index";
     }
 

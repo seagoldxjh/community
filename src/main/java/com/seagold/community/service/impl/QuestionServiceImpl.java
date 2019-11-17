@@ -15,6 +15,7 @@ import com.seagold.community.dto.QuestionDTO;
 import com.seagold.community.entity.Comment;
 import com.seagold.community.entity.Question;
 import com.seagold.community.entity.User;
+import com.seagold.community.enums.SortEnum;
 import com.seagold.community.mapper.CommentMapper;
 import com.seagold.community.mapper.QuestionMapper;
 import com.seagold.community.mapper.UserMapper;
@@ -54,17 +55,30 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<QuestionDTO> findAll() {
-        List<Question> questions = questionMapper.selectList(null);
-        List<QuestionDTO> questionDTOList = new ArrayList<>();
-        for (Question question : questions) {
-            User user = userMapper.selectById(question.getCreator());
-            QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(question, questionDTO);
-            questionDTO.setUser(user);
-            questionDTOList.add(questionDTO);
+    public List<Question> findAll(String search,String tag,String sort) {
+        QueryWrapper<Question> wrapper = new QueryWrapper<>();
+        if (!StringUtil.isEmpty(search)){
+            wrapper.like("title", search);
         }
-        return questionDTOList;
+        if (!StringUtil.isEmpty(tag)){
+            wrapper.like("tag", tag);
+        }
+        if (SortEnum.NO.name().toLowerCase().equals(sort)){
+            wrapper.orderByDesc("gmt_create").eq("comment_count", 0);
+            return questionMapper.selectList(wrapper);
+        }
+
+        wrapper.orderByDesc("view_count","comment_count");
+        if (SortEnum.HOT7.name().toLowerCase().equals(sort)){
+            wrapper.gt("gmt_create", System.currentTimeMillis() - 1000L * 60 * 60 * 24 * 7);
+        }
+
+        if (SortEnum.HOT30.name().toLowerCase().equals(sort)){
+            wrapper.gt("gmt_create", System.currentTimeMillis() - 1000L * 60 * 60 * 24 * 30);
+        }
+
+        return questionMapper.selectList(wrapper);
+
     }
 
     @Override
@@ -167,5 +181,32 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public List<Question> searchQuestionsByTag(String tag) {
         return questionMapper.selectList(new QueryWrapper<Question>().like("tag",tag));
+    }
+
+    /**
+     * 消灭零回复直接查询评论数为0的问题
+     * 构造7天最热，30天最热，最热话题查询sql
+     * @param sort
+     * @return
+     */
+    @Override
+    public List<Question> searchQuestionsBySort(String sort) {
+        QueryWrapper<Question> wrapper = new QueryWrapper<Question>();
+
+        if (SortEnum.NO.name().toLowerCase().equals(sort)){
+            wrapper.orderByDesc("gmt_create").eq("comment_count", 0);
+            return questionMapper.selectList(wrapper);
+        }
+
+        wrapper.orderByDesc("view_count","comment_count");
+        if (SortEnum.HOT7.name().toLowerCase().equals(sort)){
+            wrapper.gt("gmt_create", System.currentTimeMillis() - 1000L * 60 * 60 * 24 * 7);
+        }
+
+        if (SortEnum.HOT30.name().toLowerCase().equals(sort)){
+            wrapper.gt("gmt_create", System.currentTimeMillis() - 1000L * 60 * 60 * 24 * 30);
+        }
+
+        return questionMapper.selectList(wrapper);
     }
 }

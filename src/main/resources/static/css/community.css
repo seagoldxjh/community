@@ -5,6 +5,8 @@ body {
 .main {
     background-color: white;
     margin: 60px;
+    width: 80%;
+    margin: auto;
 }
 
 .side {
@@ -140,4 +142,8 @@ body {
 .footer {
     text-align: center;
     color: #666;;
+}
+
+.red {
+    color: #ff0000;
 }

@@ -30,6 +30,15 @@
                 阅读数： <span th:text="${question.viewCount}"></span>
             </span>
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <!--标签-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="label label-info question-tag" th:each="tag : ${question.tag.split(',')}">
+                        <span class="glyphicon glyphicon-tags"></span>
+                        <span class="label label-info" th:text="${tag}"></span>
+                    </span>
+            </div>
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
             <!--内容-->
 
             <script type="text/javascript">
@@ -49,14 +58,7 @@
             </script>
 
 
-            <!--标签-->
-            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <span class="label label-info question-tag" th:each="tag : ${question.tag.split(',')}">
-                        <span class="glyphicon glyphicon-tags"></span>
-                        <span class="label label-info" th:text="${tag}"></span>
-                    </span>
-            </div>
+
 
             <!--编辑-->
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -195,9 +197,9 @@
             <!-- 相关问题 -->
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3>相关问题</h3>
-                <ul class="question-related">
-                    <li th:each="related : ${relatedQuestions}" style="margin: 8px;">
+                <h3>你可能感兴趣的问题</h3>
+                <ul class="question-related list-group">
+                    <li th:each="related : ${relatedQuestions}"  class="list-group-item">
                         <a th:href="@{'/question/'+ ${related.id}}" th:text="${related.title}"></a>
                     </li>
                 </ul>

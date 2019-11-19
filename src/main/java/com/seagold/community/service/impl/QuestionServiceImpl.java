@@ -68,6 +68,11 @@ public class QuestionServiceImpl implements QuestionService {
             return questionMapper.selectList(wrapper);
         }
 
+        if (StringUtil.isEmpty(sort)){
+            wrapper.orderByDesc("gmt_create");
+            return questionMapper.selectList(wrapper);
+        }
+
         wrapper.orderByDesc("view_count","comment_count");
         if (SortEnum.HOT7.name().toLowerCase().equals(sort)){
             wrapper.gt("gmt_create", System.currentTimeMillis() - 1000L * 60 * 60 * 24 * 7);

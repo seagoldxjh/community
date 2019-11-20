@@ -46,20 +46,24 @@ import java.util.List;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    @Autowired
-    private CommentMapper commentMapper;
+    private final CommentMapper commentMapper;
+
+    private final QuestionMapper questionMapper;
+
+    private final QuestionService questionService;
+
+    private final UserMapper userMapper;
+
+    private final NotificationMapper notificationMapper;
 
     @Autowired
-    private QuestionMapper questionMapper;
-
-    @Autowired
-    private QuestionService questionService;
-
-    @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
-    private NotificationMapper notificationMapper;
+    public CommentServiceImpl(CommentMapper commentMapper, QuestionMapper questionMapper, QuestionService questionService, UserMapper userMapper, NotificationMapper notificationMapper) {
+        this.commentMapper = commentMapper;
+        this.questionMapper = questionMapper;
+        this.questionService = questionService;
+        this.userMapper = userMapper;
+        this.notificationMapper = notificationMapper;
+    }
 
     @Override
     @Transactional
@@ -128,11 +132,11 @@ public class CommentServiceImpl implements CommentService {
     private void createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType, Long outerId) {
         System.out.println("进入创建通知方法");
 
-        if (receiver.equals(comment.getCommentator())) {
-            System.out.println(receiver);
-            System.out.println(comment.getCommentator());
-            return;
-        }
+//        if (receiver.equals(comment.getCommentator())) {
+//            System.out.println(receiver);
+//            System.out.println(comment.getCommentator());
+//            return;
+//        }
 
 
         System.out.println("通知创建");

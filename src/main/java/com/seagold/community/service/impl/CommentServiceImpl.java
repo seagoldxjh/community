@@ -117,11 +117,11 @@ public class CommentServiceImpl implements CommentService {
             createNotify(comment, question.getCreator(), user.getName(), question.getTitle(), NotificationTypeEnum.REPLY_QUESTION, question.getId());
         }else {
 
-            Comment comment1 = commentMapper.selectById(comment.getId());
+            Comment comment1 = commentMapper.selectById(comment.getParentId());
             Long questionId = commentMapper.selectById(comment1.getParentId()).getParentId();
 
 
-            createNotify(comment, comment.getCommentator(), user.getName(), comment.getContent(), NotificationTypeEnum.REPLY_COMMENT, questionId);
+            createNotify(comment1, comment1.getCommentator(), user.getName(), comment1.getContent(), NotificationTypeEnum.REPLY_COMMENT, questionId);
         }
 
         return JsonData.buildSuccess("成功", comment.toString());

@@ -110,7 +110,7 @@ public class AuthorizeController {
                 user.setId(findUser.getId());
                 userService.updateById(user);
             }
-
+            session.setAttribute("user", user);
             Cookie cookie = new Cookie("token", token);
             cookie.setMaxAge(60*60*24*3);
             response.addCookie(cookie);

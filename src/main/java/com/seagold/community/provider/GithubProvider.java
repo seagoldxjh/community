@@ -12,6 +12,7 @@ package com.seagold.community.provider;
 import com.alibaba.fastjson.JSON;
 import com.seagold.community.dto.AccessTokenDTO;
 import com.seagold.community.dto.GithubUser;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -30,6 +31,7 @@ import java.io.IOException;
  * @since 1.0.0
  */
 @Component
+@Slf4j
 public class GithubProvider {
     /**
      * 使用okhttp发送post请求到github授权地址
@@ -51,7 +53,7 @@ public class GithubProvider {
             String[] split = string.split("&");
             return split[0].split("=")[1];
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("getAccessToken error,{}", accessTokenDTO, e);
         }return null;
     }
 
@@ -70,7 +72,7 @@ public class GithubProvider {
             String string = response.body().string();
             return JSON.parseObject(string,GithubUser.class);
         } catch (IOException e){
-            e.printStackTrace();
+            log.error("getUser error,{}", accessToken, e);
         }
         return null;
     }

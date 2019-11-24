@@ -42,7 +42,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         System.out.println("进入拦截器");
 
         Cookie[] cookies = request.getCookies();
-        if (cookies == null){
+        if (cookies == null || cookies.length==0){
             return true;
         }
         for (Cookie cookie : cookies) {

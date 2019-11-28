@@ -42,7 +42,7 @@ if (cookies == null){
 for (Cookie cookie : cookies) {
    if("token".equals(cookie.getName())){
        String token = cookie.getValue();
-       Object o = redisTemplate.opsForValue().get(token);
+       User o = (User)redisTemplate.opsForValue().get(token);
        System.out.println(o);
        if(o != null){
            request.getSession().setAttribute("user", o);

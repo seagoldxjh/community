@@ -1,6 +1,6 @@
 # 码农交流社区  
 community of study  
-### [社区地址](http://seagold.top)  
+### [社区地址](http://seagold.top)   
 
 ## github授权登陆模块（OAuth2.0）
 1. 用户点击登陆按钮，请求github提供的authorize接口，需要提供的参数
@@ -21,7 +21,7 @@ community of study
    https://api.github.com/user?access_token=xxxxx   Get方式
 6. 返回Git用户，存入数据，更新登陆状态
 
-## Redis实现用户三天免登陆
+## Redis实现用户三天免登陆 
 1. 用户登陆成功后,利用UUID生成token,将token放入cookie中并设置3天有效期
 ```java
 String token = UUID.randomUUID().toString();

@@ -1,5 +1,5 @@
 # 码农交流社区  
-community of study  
+community of study 
 ### [社区地址](http://seagold.top)   
 
 ## github授权登陆模块（OAuth2.0）

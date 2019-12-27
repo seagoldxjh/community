@@ -108,7 +108,7 @@ public class MybatisConfig {
    - 用户请求通知列表,生成
       User评论你的（问题 or 评论）
      用户请求某条通知时，转发请求到Question页面并将该通知状态置为已读
-     
+ 
 ## 集成富文本编辑器（支持Markdown）
 1. [开源在线 Markdown 编辑器](https://pandao.github.io/editor.md/)
 2. 引入依赖,添加可嵌入的 Markdown 在线编辑器（组件）

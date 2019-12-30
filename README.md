@@ -82,7 +82,7 @@ public class MybatisConfig {
 - [Bootstrap文档](https://v3.bootcss.com/css/)
 - [SpringBoot文档](https://spring.io/)
 
-
+ 
 ## 多级回复及评论观看数功能模块
 1. 数据表设计采用单表设计
    - 通过type属性指定评论为问题评论还是评论回复

@@ -25,7 +25,7 @@ community of study
 1. 用户登陆成功后,利用UUID生成token,将token放入cookie中并设置3天有效期
 ```java
 String token = UUID.randomUUID().toString();
-Cookie cookie = new Cookie("token", token);
+Cookie cookie = new Cookie("token", token); 
 cookie.setMaxAge(60*60*24*3);
 response.addCookie(cookie);
 ```

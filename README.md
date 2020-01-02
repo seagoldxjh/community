@@ -176,7 +176,7 @@ public class MybatisConfig {
 对产生对map对象进行排序,放入List中并存入Redis数据库
 4. 访问首页曲中redis数据库中热门标签展示 
  
-   
+  
 ## 一周最热话题
 1. 引入定时任务
 2. 根据浏览量 or 评论数查询一周内数量最高的50条数据

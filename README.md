@@ -20,7 +20,7 @@ community of study
 5. 利用access_token请求github提供的user接口
    https://api.github.com/user?access_token=xxxxx   Get方式
 6. 返回Git用户，存入数据，更新登陆状态
- 
+  
 ## Redis实现用户三天免登陆 
 1. 用户登陆成功后,利用UUID生成token,将token放入cookie中并设置3天有效期
 ```java

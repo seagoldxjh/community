@@ -1,7 +1,7 @@
 # 码农社区   
 community of study
 ### [社区地址](http://seagold.top)   
- 
+  
 ## github授权登陆模块（OAuth2.0）
 1. 用户点击登陆按钮，请求github提供的authorize接口，需要提供的参数
    - client_id: github生成的

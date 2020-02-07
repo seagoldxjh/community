@@ -1,7 +1,7 @@
-# 码农交流社区 
-community of study  
-### [社区地址](http://seagold.top)  
-
+# 码农社区   
+community of study
+### [社区地址](http://seagold.top)   
+  
 ## github授权登陆模块（OAuth2.0）
 1. 用户点击登陆按钮，请求github提供的authorize接口，需要提供的参数
    - client_id: github生成的
@@ -20,12 +20,12 @@ community of study
 5. 利用access_token请求github提供的user接口
    https://api.github.com/user?access_token=xxxxx   Get方式
 6. 返回Git用户，存入数据，更新登陆状态
-
-## Redis实现用户三天免登陆
+   
+## Redis实现用户三天免登陆 
 1. 用户登陆成功后,利用UUID生成token,将token放入cookie中并设置3天有效期
 ```java
 String token = UUID.randomUUID().toString();
-Cookie cookie = new Cookie("token", token);
+Cookie cookie = new Cookie("token", token); 
 cookie.setMaxAge(60*60*24*3);
 response.addCookie(cookie);
 ```
@@ -42,7 +42,7 @@ if (cookies == null){
 for (Cookie cookie : cookies) {
    if("token".equals(cookie.getName())){
        String token = cookie.getValue();
-       Object o = redisTemplate.opsForValue().get(token);
+       User o = (User)redisTemplate.opsForValue().get(token);
        System.out.println(o);
        if(o != null){
            request.getSession().setAttribute("user", o);
@@ -51,7 +51,7 @@ for (Cookie cookie : cookies) {
    }
 }
 ```
-
+  
 ## 社区帖子发布,修改,分页展示模块
 1. 集成PageHelper分页插件,并配置bean,采用MybatisPlus为Mybatis做增强操作，减少项目大量SQL
 ```java
@@ -82,7 +82,7 @@ public class MybatisConfig {
 - [Bootstrap文档](https://v3.bootcss.com/css/)
 - [SpringBoot文档](https://spring.io/)
 
-
+ 
 ## 多级回复及评论观看数功能模块
 1. 数据表设计采用单表设计
    - 通过type属性指定评论为问题评论还是评论回复
@@ -90,7 +90,7 @@ public class MybatisConfig {
 2. 问题显示页面
    - 首次进入问题页面应保证效率,仅展示一级评论,即问题的回复
    - 每条评论显示有点赞数及评论数,用户可点击评论查看二级评论,并显示出二级评论窗口
-   
+ 
 ## Redis中tag标签库完善
 1. 可以将标签全部放入Redis数据库中
 2. 不允许提交问题时输入非法标签 
@@ -108,7 +108,7 @@ public class MybatisConfig {
    - 用户请求通知列表,生成
       User评论你的（问题 or 评论）
      用户请求某条通知时，转发请求到Question页面并将该通知状态置为已读
-     
+ 
 ## 集成富文本编辑器（支持Markdown）
 1. [开源在线 Markdown 编辑器](https://pandao.github.io/editor.md/)
 2. 引入依赖,添加可嵌入的 Markdown 在线编辑器（组件）
@@ -176,11 +176,10 @@ public class MybatisConfig {
 对产生对map对象进行排序,放入List中并存入Redis数据库
 4. 访问首页曲中redis数据库中热门标签展示 
  
-   
+  
 ## 一周最热话题
 1. 引入定时任务
 2. 根据浏览量 or 评论数查询一周内数量最高的50条数据
 
 
 ## 未完待续...
-

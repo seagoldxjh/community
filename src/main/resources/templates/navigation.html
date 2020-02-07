@@ -26,7 +26,7 @@
                 <li th:if="${session.user != null}">
                     <a href="/publish">提问</a>
                 </li>
-                <li><a href="/profile/replies">通知&nbsp;<span class="badge" th:text="${session.unreadCount}">16</span></a></li>
+                <li><a href="/profile/replies">消息&nbsp;<span class="badge" th:text="${session.unreadCount}">16</span></a></li>
                 <li th:if="${session.user != null}">
                     <img class="media-object img-rounded" th:src="${session.user.headImg}">
                 </li>

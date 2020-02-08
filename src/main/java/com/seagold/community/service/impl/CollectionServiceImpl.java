@@ -10,11 +10,14 @@
 package com.seagold.community.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.seagold.community.dto.CollectsDTO;
 import com.seagold.community.entity.Collection;
 import com.seagold.community.mapper.CollectionMapper;
 import com.seagold.community.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -41,5 +44,10 @@ public class CollectionServiceImpl implements CollectionService {
         wrapper.eq("question_id",collection.getQuestionId());
         wrapper.eq("user_id", collection.getUserId());
         return collectionMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public List<CollectsDTO> collects(Long userId) {
+        return collectionMapper.collects(userId);
     }
 }

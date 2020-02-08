@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seagold.community.mapper.CollectionMapper">
+
+    <select id="collects" resultType="com.seagold.community.dto.CollectsDTO">
+--         select q.*,c.gmt_create from collection c LEFT JOIN question q on q.id = c.question_id where c.user_id = ${userId}
+        select q.*,c.gmt_create as gmtCreate2 from collection c LEFT JOIN question q on q.id = c.question_id where c.user_id = 18
+    </select>
+
+</mapper>

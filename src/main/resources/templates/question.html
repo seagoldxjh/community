@@ -16,6 +16,29 @@
     <script src="/js/lib/marked.min.js"></script>
     <script src="/js/lib/prettify.min.js"></script>
 
+    <script>
+        /**
+         * 页面加载时查询用户是否收藏和举报过此问题
+         */
+        $(function(){
+            var url = window.location.pathname;
+            var questionId = url.substring(url.lastIndexOf('/') + 1, url.length);
+            $.ajax({
+                type : "GET",
+                url : "/isCollect",
+                data : {
+                    "questionId" : questionId
+                },
+                success: function (msg) {
+                    console.log(msg)
+                    if (msg.code == 200) {
+                        $('#btn1').text("已收藏");
+                        $('#btn1').attr("disabled", "disabled");
+                    }
+                }
+            })
+        });
+    </script>
 </head>
 <body>
 <div th:insert="~{navigation :: nav}"></div>
@@ -150,7 +173,7 @@
                     </div>
                     <input type="hidden" id="question_id" th:value="${question.id}">
                     <textarea class="form-control comment" rows="6" id="comment_content"></textarea>
-                    <button type="button" class="btn btn-success btn-comment" onclick="post()">回复</button>
+                    <button type="button" class="btn btn-success btn-comment" onclick="post()">我要回答</button>
                 </div>
             </div>
         </div>

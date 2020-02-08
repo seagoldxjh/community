@@ -11,9 +11,11 @@ package com.seagold.community.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.seagold.community.dto.CollectsDTO;
 import com.seagold.community.dto.NotificationUserDTO;
 import com.seagold.community.entity.Question;
 import com.seagold.community.entity.User;
+import com.seagold.community.service.CollectionService;
 import com.seagold.community.service.NotificationService;
 import com.seagold.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,9 @@ public class ProfileController {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private CollectionService collectionService;
+
     /**
      * 用户查询自己发起的提问及查询自己的回复
      * @param action
@@ -65,6 +70,7 @@ public class ProfileController {
         }
 
         if ("questions".equals(action)){
+            System.out.println("---------");
             model.addAttribute("section","questions");
             model.addAttribute("sectionName", "我的提问");
             PageHelper.startPage(page, size);
@@ -78,7 +84,18 @@ public class ProfileController {
             List<NotificationUserDTO> all = notificationService.findAllById(user.getId());
             PageInfo<NotificationUserDTO> pageInfo = new PageInfo<>(all);
             model.addAttribute("pageInfo", pageInfo);
-
+        }else if ("collects".equals(action)){
+            System.out.println("++++++++");
+            model.addAttribute("section", "collects");
+            model.addAttribute("sectionName", "我的收藏");
+            PageHelper.startPage(page, size);
+            List<CollectsDTO> collects = collectionService.collects(user.getId());
+            PageInfo<CollectsDTO> pageInfo = new PageInfo<>(collects);
+            model.addAttribute("pageInfo", pageInfo);
+//            List<CollectsDTO> list = pageInfo.getList();
+//            for(CollectsDTO item : list){
+//                System.out.println(item);
+//            }
         }
 
 

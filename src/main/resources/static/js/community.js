@@ -37,27 +37,7 @@ function comment2target(targetId, type, content) {
     });
 }
 
-/**
- * 页面加载时查询用户是否收藏和举报过此问题
- */
-$(function(){
-    var url = window.location.pathname;
-    var questionId = url.substring(url.lastIndexOf('/') + 1, url.length);
-    $.ajax({
-        type : "GET",
-        url : "/isCollect",
-        data : {
-            "questionId" : questionId
-        },
-        success: function (msg) {
-            console.log(msg)
-            if (msg.code == 200) {
-                $('#btn1').text("已收藏");
-                $('#btn1').attr("disabled", "disabled");
-            }
-        }
-    })
-});
+
 
 /**
  * 收藏问题
@@ -193,3 +173,4 @@ function timetrans(date){
     var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
     return Y+M+D+h+m+s;
 }
+

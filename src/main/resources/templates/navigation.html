@@ -2,7 +2,160 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="nav">
-<nav class="navbar navbar-default">
+    <nav class="navbar navbar-default bootsnav" >
+
+
+
+        <div class="container" >
+
+            <!-- Start Header Navigation -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">码农社区</span>
+                </button>
+
+                <ul class="nav navbar-nav">
+                    <li><a class="navbar-brand" href="/">码农社区</a></li>
+                    <li class="navtitle"><a href="/">首页</a></li>
+                    <li class="dropdown megamenu-fw">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">所有标签</a>
+                        <ul class="dropdown-menu megamenu-content" role="menu">
+                            <li>
+                                <div class="row">
+                                    <div class="col-menu col-md-2">
+                                        <h6 class="title">开发语言</h6>
+                                        <div class="content">
+                                            <ul class="menu-col" style="padding-inline-start: 0px; width: 80%; margin:auto; ">
+                                                <li><a href="/?tag=javascript">javascript</a></li>
+                                                <li><a href="/?tag=php">php</a></li>
+                                                <li><a href="/?tag=html">html</a></li>
+                                                <li><a href="/?tag=css">css</a></li>
+                                                <li><a href="/?tag=java">java</a></li>
+                                                <li><a href="/?tag=node.js">node.js</a></li>
+                                                <li><a href="/?tag=python">python</a></li>
+                                                <li><a href="/?tag=c++">c++</a></li>
+                                                <li><a href="/?tag=c">c</a></li>
+                                                <li><a href="/?tag=shell">shell</a></li>
+                                                <li><a href="/?tag=objective-c">objective-c</a></li>
+                                                <li><a href="/?tag=bash">bash</a></li>
+                                                <li><a href="/?tag=less">less</a></li>
+                                                <li><a href="/?tag=perl">perl</a></li>
+                                            </ul>
+                                        </div>
+                                    </div><!-- end col-3 -->
+                                    <div class="col-menu col-md-2">
+                                        <h6 class="title">开发工具</h6>
+                                        <div class="content">
+                                            <ul class="menu-col" style="padding-inline-start: 0px; width: 80%; margin:auto; ">
+                                                <li><a href="/?tag=git">git</a></li>
+                                                <li><a href="/?tag=github">github</a></li>
+                                                <li><a href="/?tag=visual-studio-code" >visual-studio</a></li>
+                                                <li><a href="/?tag=vim">vim</a></li>
+                                                <li><a href="/?tag=sublime-text">sublime</a></li>
+                                                <li><a href="/?tag=xcode">xcode</a></li>
+                                                <li><a href="/?tag=intellij-idea" >intellij-idea</a></li>
+                                                <li><a href="/?tag=eclipse">eclipse</a></li>
+                                                <li><a href="/?tag=maven">maven</a></li>
+                                                <li><a href="/?tag=svn" >svn</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-menu col-md-2">
+                                        <h6 class="title">平台框架</h6>
+                                        <div class="content">
+                                            <ul class="menu-col" style="padding-inline-start: 0px; width: 80%; margin:auto; ">
+                                                <li ><a href="/?tag=spring" >spring</a></li>
+                                                <li><a href="/?tag=springmvc" >springmvc</a></li>
+                                                <li ><a href="/?tag=mybatis">mybatis</a></li>
+                                                <li ><a href="/?tag=express">express</a></li>
+                                                <li ><a href="/?tag=django">django</a></li>
+                                                <li><a href="/?tag=hadoop">hadoop</a></li>
+                                                <li ><a href="/?tag=struts" >struts</a></li>
+                                            </ul>
+                                        </div>
+                                    </div><!-- end col-3 -->
+                                    <div class="col-menu col-md-2">
+                                        <h6 class="title">服务器</h6>
+                                        <div class="content">
+                                            <ul class="menu-col" style="padding-inline-start: 0px; width: 80%; margin:auto; ">
+                                                <li ><a href="/?tag=linux" >linux</a></li>
+                                                <li><a href="/?tag=nginx" >nginx</a></li>
+                                                <li><a href="/?tag=docker" >docker</a></li>
+                                                <li ><a href="/?tag=tomcat">tomcat</a></li>
+                                                <li><a href="/?tag=ubuntu" >ubuntu</a></li>
+                                                <li><a href="/?tag=centos">centos</a></li>
+                                                <li><a href="/?tag=windows-server">windows-server</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-menu col-md-2">
+                                        <h6 class="title">数据库</h6>
+                                        <div class="content">
+                                            <ul class="menu-col" style="padding-inline-start: 0px; width: 80%; margin:auto; ">
+                                                <li><a href="/?tag=mysql" >mysql</a></li>
+                                                <li ><a href="/?tag=redis" >redis</a></li>
+                                                <li><a href="/?tag=mongodb">mongodb</a></li>
+                                                <li><a href="/?tag=oracle" >oracle</a></li>
+                                                <li><a href="/?tag=sqlserver">sqlserver</a></li>
+                                                <li ><a href="/?tag=postgresql">postgresql</a></li>
+                                                <li><a href="/?tag=sqlite">sqlite</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- end col-3 -->
+                                </div><!-- end row -->
+                            </li>
+                        </ul>
+
+
+
+                    <li>
+                        <form class="navbar-form navbar-left" action="/searchQuestions" method="post" style="margin-top: 23px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="search" placeholder="搜索问题">
+                            </div>
+                            <button type="submit" class="btn btn-default">搜索</button>
+                        </form>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- End Header Navigation -->
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+
+                    <li th:if="${session.user != null}">
+                        <a href="/publish">提问</a>
+                    </li>
+                    <li><a href="/profile/replies">消息&nbsp;<span class="badge" th:text="${session.unreadCount}">16</span></a></li>
+                    <li th:if="${session.user != null}">
+                        <img class="media-object img-rounded" th:src="${session.user.headImg}" style="margin-top: 21px;">
+                    </li>
+                    <li class="dropdown" th:if="${session.user != null}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">
+                            <span th:text="${session.user.getName()}"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/profile/questions">我的问题</a></li>
+                            <li><a href="/profile/collects">我的收藏</a></li>
+                            <li><a href="/logout">退出登录</a></li>
+                        </ul>
+                    </li>
+                    <li th:if="${session.user == null}">
+                        <a href="https://github.com/login/oauth/authorize?client_id=d921b8f218b9e6f06073&redirect_uri=http://localhost/callback&state=1&scope=user">登陆</a>
+                        <!--<a href="https://github.com/login/oauth/authorize?client_id=10452eda4e3ceb4897c2&redirect_uri=http://seagold.top/callback&state=1&scope=user">登陆</a>-->
+                    </li>
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+
+    <!--老版导航栏-->
+<!--<nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -36,7 +189,7 @@
                                             <li class="center-block"><a href="/?tag=perl" class="community-tag">perl</a></li>
                                         </ul>
                                     </div>
-                                </div><!-- end col-3 -->
+                                </div>&lt;!&ndash; end col-3 &ndash;&gt;
                                 <div class="col-menu col-md-3">
                                     <h6 class="text-center center-block ">开发工具</h6>
                                     <div class="content">
@@ -67,7 +220,7 @@
                                             <li class="center-block"><a href="/?tag=struts" class="community-tag">struts</a></li>
                                         </ul>
                                     </div>
-                                </div><!-- end col-3 -->
+                                </div>&lt;!&ndash; end col-3 &ndash;&gt;
                                 <div class="col-menu col-md-3">
                                     <h6 class="text-center center-block ">服务器</h6>
                                     <div class="content">
@@ -96,8 +249,8 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <!-- end col-3 -->
-                            </div><!-- end row -->
+                                &lt;!&ndash; end col-3 &ndash;&gt;
+                            </div>&lt;!&ndash; end row &ndash;&gt;
                         </li>
                     </ul>
                 </li>
@@ -107,7 +260,7 @@
 
 
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
+        &lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <form class="navbar-form navbar-left" action="/searchQuestions" method="post">
                 <div class="form-group">
@@ -137,12 +290,15 @@
                 </li>
                 <li th:if="${session.user == null}">
                     <a href="https://github.com/login/oauth/authorize?client_id=d921b8f218b9e6f06073&redirect_uri=http://localhost/callback&state=1&scope=user">登陆</a>
-                    <!--<a href="https://github.com/login/oauth/authorize?client_id=10452eda4e3ceb4897c2&redirect_uri=http://seagold.top/callback&state=1&scope=user">登陆</a>-->
+                    &lt;!&ndash;<a href="https://github.com/login/oauth/authorize?client_id=10452eda4e3ceb4897c2&redirect_uri=http://seagold.top/callback&state=1&scope=user">登陆</a>&ndash;&gt;
                 </li>
             </ul>
         </div>
     </div>
-</nav>
+
+</nav>-->
+
+
 </div>
 <div th:insert="~{footer :: foot}"></div>
 

@@ -58,14 +58,6 @@ function collection(btn){
     })
 }
 
-/**
- * 举报违规问题
- */
-function report(btn){
-    console.log(btn)
-    $('#btn2').text('已举报');
-    $('#btn2').attr("disabled","disabled");
-}
 
 /**
  * 展开二级评论

@@ -3,8 +3,7 @@
 <mapper namespace="com.seagold.community.mapper.CollectionMapper">
 
     <select id="collects" resultType="com.seagold.community.dto.CollectsDTO">
---         select q.*,c.gmt_create from collection c LEFT JOIN question q on q.id = c.question_id where c.user_id = ${userId}
-        select q.*,c.gmt_create as gmtCreate2 from collection c LEFT JOIN question q on q.id = c.question_id where c.user_id = 18
+        select c.id as collectId,q.*,c.gmt_create as gmtCreate2 from collection c LEFT JOIN question q on q.id = c.question_id where c.user_id = #{userId}
     </select>
 
 </mapper>

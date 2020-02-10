@@ -16,6 +16,7 @@ import com.seagold.community.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -79,6 +80,16 @@ public class CollectionController {
             return JsonData.buildSuccess("您已经收藏过此问题了", 200);
         }
         return JsonData.buildSuccess("还未收藏此问题",201);
+    }
+
+    @ResponseBody
+    @GetMapping("/delCollect/{id}")
+    public JsonData collect(@PathVariable(name = "id") Long id){
+        int row = collectionService.delCollect(id);
+        if(row == 1){
+            return JsonData.buildSuccess("取消收藏成功", 200);
+        }
+        return JsonData.buildError("取消收藏失败");
     }
 
 

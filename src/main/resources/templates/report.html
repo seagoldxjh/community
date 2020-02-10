@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>码农社区-问题举报</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/editormd.min.css">
+    <link rel="stylesheet" href="/css/editormd.preview.min.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/community.js"></script>
+
+
+
+    <link href="/css/bootsnav.css" rel="stylesheet">
+    <link href="/css/color.css" rel="stylesheet">
+    <script src="/js/bootsnav.js"></script>
+</head>
+<body style="background-color: #f9f9f9">
+    <div th:insert="~{navigation :: nav}"></div>
+    <div class="row report" style="height: 431px;"></div>
+
+    <div class="report-box">
+        <div class="report-title">
+            <h2 style="display: inline-block; color: #757575;">问题举报</h2>
+            <span style="display: inline-block; color: #888888; font-size: 14px; padding-left: 10px;">所有项均为必填</span>
+        </div>
+        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal" style="margin-top: 15px;">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">问题ID</label>
+                <div class="col-sm-10">
+                    <input class="form-control" style="width: 100px;" disabled th:value="${question.id}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-2 control-label">问题标题</label>
+                <div class="col-sm-10">
+                    <input class="form-control" style="width: 400px;" disabled th:value="${question.title}">
+                </div>
+            </div>
+            <hr>
+            <div class="form-group" >
+                <label  class="col-sm-2 control-label">举报原因</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 低俗色情
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 反动
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 非法行为
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> 其他
+                    </label>
+                </div>
+                <div class="col-sm-offset-2 col-sm-10" style="margin-top: 10px;">
+                    <textarea class="form-control" rows="5" placeholder="请输入详细说明,不超过100字符" style="width: 600px;"></textarea>
+                </div>
+            </div>
+            <hr>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">举报人</label>
+                <div class="col-sm-10">
+                    <input class="form-control" style="width: 100px;" disabled th:value="${session.user.getName()}">
+                </div>
+            </div>
+            <hr>
+            <div class="col-sm-offset-2 col-sm-10" style="margin-top: 10px;">
+                <input class="btn btn-info btn-lg" type="button" value="提交举报">
+                <a href="/" style="color: #999999; font-size: 14px; margin-left: 20px;">返回首页</a>
+            </div>
+        </form>
+    </div>
+
+    <div th:insert="~{footer :: foot}" style="margin-bottom: 0px;"></div>
+</body>
+</html>

@@ -11,4 +11,6 @@ public interface CollectionService {
     Collection isCollect(Collection collection);
 
     List<CollectsDTO> collects(Long userId);
+
+    int delCollect(Long id);
 }

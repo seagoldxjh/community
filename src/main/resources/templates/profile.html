@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/editormd.min.css">
+    <link rel="stylesheet" href="/css/editormd.preview.min.css">
 
     <link href="/css/bootsnav.css" rel="stylesheet">
     <link href="/css/color.css" rel="stylesheet">
@@ -62,7 +64,7 @@
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${section == 'collects'}">
-                <div class="media" th:each="question : ${pageInfo.list}" >
+                <div class="media" th:each="question : ${pageInfo.list}">
                     <div class="media-left">
                         <a href="#">
                             <!--<img class="media-object img-rounded" th:src="${question.user.headImg}">-->
@@ -76,9 +78,14 @@
                         <span class="text-desc"><span th:text="${question.commentCount}"></span> 个回复 • <span
                                 th:text="${question.viewCount}"></span> 次浏览 • <span
                                 th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span>
+                        <button th:value="${question.collectId}" class="btn btn-default btn-sm"  onclick="delCollect(this)">
+                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                            取消收藏
+                        </button>
+                        <p th:if="${question.id == null}">该问题已被删除</p>
                     </div>
-
                     <div class="media-right" style="padding-right: 40px; margin-right: 40px;">
+                        <!--<div th:text="${question}"></div>-->
                         <div th:text="收藏于+${#dates.format(question.gmtCreate2,'yyyy-MM-dd HH:mm')}"></div>
                     </div>
                 </div>
@@ -143,4 +150,21 @@
 <div th:insert="~{footer :: foot}"></div>
 
 </body>
+<script>
+    function delCollect(obj) {
+        $(obj).parent().parent().fadeTo("slow", 0.1, function(){//fade
+            $(obj).parent().parent().slideUp("slow", function() {//slide up
+                $(obj).parent().parent().remove();//then remove from the DOM
+            });
+        });
+
+        $.ajax({
+            url : "/delCollect/"+$(obj).val(),
+            type : "GET",
+            success : function (msg) {
+                console.log(msg)
+            }
+        })
+    }
+</script>
 </html>

@@ -50,4 +50,9 @@ public class CollectionServiceImpl implements CollectionService {
     public List<CollectsDTO> collects(Long userId) {
         return collectionMapper.collects(userId);
     }
+
+    @Override
+    public int delCollect(Long id) {
+        return collectionMapper.deleteById(id);
+    }
 }

@@ -11,7 +11,7 @@
             <!-- Start Header Navigation -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">码农社区</span>
+                    <span class="sr-only site-title">码农社区</span>
                 </button>
 
                 <ul class="nav navbar-nav">
@@ -127,9 +127,12 @@
                 <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
 
                     <li th:if="${session.user != null}">
-                        <a href="/publish">提问</a>
+                        <a href="/publish"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;提问</a>
                     </li>
-                    <li><a href="/profile/replies">消息&nbsp;<span class="badge" th:text="${session.unreadCount}">16</span></a></li>
+                    <li>
+
+                        <a href="/profile/replies">消息&nbsp;<span class="badge" th:text="${session.unreadCount}"></span></a>
+                    </li>
                     <li th:if="${session.user != null}">
                         <img class="media-object img-rounded" th:src="${session.user.headImg}" style="margin-top: 21px;">
                     </li>

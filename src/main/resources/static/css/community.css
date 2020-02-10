@@ -162,3 +162,26 @@ body {
     margin: 4px;
 }
 
+.report {
+    background-image: url(/images/report.jpg);
+}
+
+.report-box {
+    margin: -75px auto 0;
+    width: 986px;
+    height: 600px;
+    border: 7px solid #ebebeb;
+    z-index: 2;
+    background-color: #FFFFFF;
+    font-family: "微软雅黑";
+    position: relative;
+}
+
+.report-title {
+    padding-left: 48px;
+    height: 76px;
+    border-bottom: 1px solid #ebebeb;
+    line-height: 76px;
+}
+
+

@@ -61,7 +61,7 @@
             </span>
             <span style="margin-left: 40%;" th:if="${session.user != null}">
                 <button type="button" class="btn btn-info" id="btn1" th:value="${question.id}" onclick="collection(this)">收藏</button>
-                <button type="button" class="btn btn-danger" id="btn2" th:value="${question.id}" onclick="report(this)">举报</button>
+                <a th:href="@{'/report/'+${question.id}}" target="_blank"><button type="button" class="btn btn-danger" id="btn2" th:value="${question.id}">举报</button></a>
             </span>
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <!--标签-->

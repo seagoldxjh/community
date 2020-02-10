@@ -9,9 +9,6 @@
  */
 package com.seagold.community.controller;
 
-import com.seagold.community.mapper.QuestionMapper;
-import com.seagold.community.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,12 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class HelloController {
-    @Autowired
-    UserMapper userMapper;
-
-    @Autowired
-    QuestionMapper questionMapper;
-
 
 
     @RequestMapping("/test")
@@ -41,4 +32,5 @@ public class HelloController {
 
 
     }
+
 }

@@ -9,7 +9,6 @@
  */
 package com.seagold.community.dto;
 
-import com.seagold.community.entity.Question;
 import lombok.Data;
 
 /**
@@ -22,7 +21,7 @@ import lombok.Data;
  */
 @Data
 public class CollectsDTO {
-    private Question question;
+    private Long collectId;
     private Long id;
     private String title;
     private String description;

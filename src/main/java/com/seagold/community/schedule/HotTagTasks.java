@@ -43,8 +43,14 @@ public class HotTagTasks {
     private HotTagCache hotTagCache;
 
     //每天中午16点
-    @Scheduled(cron = "0 0 16 * * ?")
+    @Scheduled(cron = "0 0 17 * * ?")
     public void hotTagSchedule(){
+        System.out.println("执行定时任务");
+        System.out.println("执行定时任务");
+        System.out.println("执行定时任务");
+        System.out.println("执行定时任务");
+        System.out.println("执行定时任务");
+        System.out.println("执行定时任务");
         Map<String, Integer> priorities = new HashMap<>(16);
         List<Question> questions = questionMapper.selectList(null);
         for (Question question : questions) {

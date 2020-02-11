@@ -40,6 +40,20 @@
                     }
                 }
             })
+            $.ajax({
+                type : "GET",
+                url : "/isReport",
+                data : {
+                    "questionId" : questionId
+                },
+                success: function (msg) {
+                    console.log(msg)
+                    if (msg.code == 200) {
+                        $('#btn2').text("已举报");
+                        $('#btn2').attr("disabled", "disabled");
+                    }
+                }
+            })
         });
     </script>
 </head>

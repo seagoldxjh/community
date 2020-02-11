@@ -33,13 +33,13 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     //需要拦截的路径，默认为全部
-    String addPathPatterns[] = {
+    String[] addPathPatterns = {
             "/","/index.html"
     };
 
     //排除不需要拦截的路径
-    String excludePathPatterns[] = {
-            "/redis/**", "/rabbit/**"
+    String[] excludePathPatterns = {
+            "/redis/**", "/rabbit/**","/**.ico"
     };
 
     @Override

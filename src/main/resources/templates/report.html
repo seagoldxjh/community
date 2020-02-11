@@ -27,17 +27,17 @@
             <h2 style="display: inline-block; color: #757575;">问题举报</h2>
             <span style="display: inline-block; color: #888888; font-size: 14px; padding-left: 10px;">所有项均为必填</span>
         </div>
-        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal" style="margin-top: 15px;">
+        <form action="/report" method="post" class="form-horizontal" style="margin-top: 15px;">
             <div class="form-group">
                 <label class="col-sm-2 control-label">问题ID</label>
                 <div class="col-sm-10">
-                    <input class="form-control" style="width: 100px;" disabled th:value="${question.id}">
+                    <input class="form-control" name="questionId" style="width: 100px;" readonly th:value="${question.id}">
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-2 control-label">问题标题</label>
                 <div class="col-sm-10">
-                    <input class="form-control" style="width: 400px;" disabled th:value="${question.title}">
+                    <input class="form-control" name="questionTitle" style="width: 400px;" readonly th:value="${question.title}">
                 </div>
             </div>
             <hr>
@@ -45,32 +45,33 @@
                 <label  class="col-sm-2 control-label">举报原因</label>
                 <div class="col-sm-10">
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 低俗色情
+                        <input type="radio" name="reportType" id="inlineRadio1" value="低俗色情"> 低俗色情
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 反动
+                        <input type="radio" name="reportType" id="inlineRadio2" value="反动"> 反动
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 非法行为
+                        <input type="radio" name="reportType" id="inlineRadio3" value="非法行为"> 非法行为
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> 其他
+                        <input type="radio" name="reportType" id="inlineRadio4" value="其他"> 其他
                     </label>
                 </div>
                 <div class="col-sm-offset-2 col-sm-10" style="margin-top: 10px;">
-                    <textarea class="form-control" rows="5" placeholder="请输入详细说明,不超过100字符" style="width: 600px;"></textarea>
+                    <textarea class="form-control" name="reportDetails" rows="5" placeholder="请输入详细说明,不超过100字符" style="width: 600px;"></textarea>
                 </div>
             </div>
             <hr>
             <div class="form-group">
                 <label class="col-sm-2 control-label">举报人</label>
                 <div class="col-sm-10">
-                    <input class="form-control" style="width: 100px;" disabled th:value="${session.user.getName()}">
+                    <input type="hidden" name="reportCreator" th:value="${session.user.id}">
+                    <input class="form-control" name="reportUser" style="width: 100px;" readonly th:value="${session.user.getName()}">
                 </div>
             </div>
             <hr>
             <div class="col-sm-offset-2 col-sm-10" style="margin-top: 10px;">
-                <input class="btn btn-info btn-lg" type="button" value="提交举报">
+                <button class="btn btn-info btn-lg" type="submit">提交举报</button>
                 <a href="/" style="color: #999999; font-size: 14px; margin-left: 20px;">返回首页</a>
             </div>
         </form>

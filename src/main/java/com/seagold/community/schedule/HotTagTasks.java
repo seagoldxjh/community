@@ -43,7 +43,7 @@ public class HotTagTasks {
     private HotTagCache hotTagCache;
 
     //每天中午16点
-    @Scheduled(cron = "0 0 17 * * ?")
+    @Scheduled(cron = "0 0 18 * * ?")
     public void hotTagSchedule(){
         System.out.println("执行定时任务");
         System.out.println("执行定时任务");

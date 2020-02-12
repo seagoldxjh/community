@@ -118,6 +118,9 @@ public class QuestionServiceImpl implements QuestionService {
         QuestionDTO questionDTO = new QuestionDTO();
 
         Question question = questionMapper.selectById(id);
+        if (question == null){
+            return null;
+        }
         question.setViewCount(question.getViewCount() + 1);
         questionMapper.updateById(question);
 

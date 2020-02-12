@@ -9,10 +9,12 @@
  */
 package com.seagold.community.service;
 
+import com.seagold.community.dto.WeiBoUser;
 import com.seagold.community.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -30,4 +32,6 @@ public interface UserService {
     User findByAccountId(String id);
     void updateById(User user);
     void logout(HttpServletRequest request, HttpServletResponse response);
+    int weiboUser(WeiBoUser weiBoUser,HttpServletResponse response,
+                  HttpSession session);
 }

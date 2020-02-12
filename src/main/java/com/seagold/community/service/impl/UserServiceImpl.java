@@ -10,6 +10,7 @@
 package com.seagold.community.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.seagold.community.dto.WeiBoUser;
 import com.seagold.community.entity.User;
 import com.seagold.community.mapper.UserMapper;
 import com.seagold.community.service.UserService;
@@ -20,7 +21,9 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -84,6 +87,44 @@ public class UserServiceImpl implements UserService {
                 }
             }
         }
+    }
+
+    /**
+     * 授权登陆过后的微博用户封装成自己的User插入或修改信息
+     * @param weiBoUser
+     * @return 400:授权登陆失败 200登陆成功
+     */
+    @Override
+    public int weiboUser(WeiBoUser weiBoUser,
+                         HttpServletResponse response,
+                         HttpSession session) {
+        if(weiBoUser == null || weiBoUser.getUuid() == null){
+            return 400;
+        }
+
+        User user = new User();
+        user.setAccountId(String.valueOf(weiBoUser.getUuid()));
+        user.setName(weiBoUser.getUsername());
+        user.setHeadImg(weiBoUser.getAvatar());
+        String token = UUID.randomUUID().toString();
+        user.setToken(token);
+
+        User findUser = findByAccountId(user.getAccountId());
+        if (findUser == null){
+            insert(user);
+        }else {
+            user.setId(findUser.getId());
+            updateById(user);
+        }
+
+        session.setAttribute("user", user);
+        Cookie cookie = new Cookie("token", token);
+        cookie.setMaxAge(60*60*24*3);
+        response.addCookie(cookie);
+        autoLogin(user);
+
+
+        return 200;
     }
 
 }

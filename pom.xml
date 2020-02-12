@@ -109,6 +109,13 @@
             <artifactId>pagehelper</artifactId>
             <version>4.1.0</version>
         </dependency>
+
+        <!-- JustAuth登陆 -->
+        <dependency>
+            <groupId>me.zhyd.oauth</groupId>
+            <artifactId>JustAuth</artifactId>
+            <version>1.13.2</version>
+        </dependency>
     </dependencies>
 
     <build>

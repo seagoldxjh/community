@@ -118,7 +118,12 @@ public class CommentServiceImpl implements CommentService {
         }else {
 
             Comment comment1 = commentMapper.selectById(comment.getParentId());
-            Long questionId = commentMapper.selectById(comment1.getParentId()).getParentId();
+            System.out.println(comment1);
+            System.out.println(comment1);
+            System.out.println(comment1);
+            System.out.println(comment1);
+            System.out.println(comment1);
+            Long questionId = comment1.getParentId();
 
 
             createNotify(comment1, comment1.getCommentator(), user.getName(), comment1.getContent(), NotificationTypeEnum.REPLY_COMMENT, questionId);

@@ -33,7 +33,7 @@
                     </div>
                     <div class="media-body" style="padding-left: 20px;">
                         <h4 class="media-heading" >
-                            <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
+                            <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}" style="color: #333"></a>
                         </h4>
                         <span class="text-desc"><span th:text="${question.commentCount}"></span> 个回复 • <span
                                 th:text="${question.viewCount}"></span> 次浏览 • <span

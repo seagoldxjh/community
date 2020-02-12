@@ -3,7 +3,7 @@ body {
 }
 
 .main {
-    background-color: white;
+    background-color: #FFFFFF;
     margin: 60px;
     width: 80%;
     margin: auto;
@@ -164,6 +164,8 @@ body {
 
 .report {
     background-image: url(/images/report.jpg);
+    background-repeat: no-repeat;
+    background-size:100% 100%;
 }
 
 .report-box {
@@ -183,5 +185,13 @@ body {
     border-bottom: 1px solid #ebebeb;
     line-height: 76px;
 }
+
+svg {
+    width: 130px;
+    height: 130px;
+    display: block;
+    margin: auto auto 50px;
+}
+
 
 

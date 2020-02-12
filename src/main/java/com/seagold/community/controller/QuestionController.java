@@ -229,6 +229,10 @@ public class QuestionController {
     @RequestMapping("/question/{id}")
     public String question(@PathVariable(name = "id") Long id,Model model){
         QuestionDTO question = questionService.findById(id);
+        if (question == null){
+            model.addAttribute("message","该问题不存在或已被删除");
+            return "error";
+        }
         model.addAttribute("question", question);
 
 

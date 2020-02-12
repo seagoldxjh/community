@@ -53,6 +53,10 @@ public class ReportController {
     @GetMapping("/report/{id}")
     public String reportView(@PathVariable(name = "id")Long id, Model model){
         QuestionDTO que = questionService.findById(id);
+        if (que == null){
+            model.addAttribute("message","该问题不存在或已被删除");
+            return "error";
+        }
         model.addAttribute("question",que);
         return "report";
     }

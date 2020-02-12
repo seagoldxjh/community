@@ -15,6 +15,7 @@
                 </button>
 
                 <ul class="nav navbar-nav">
+                    <li><a href="/" style="padding: 0; margin: 0;"><img src="/favicon.ico" alt="网页logo" width="60px" height="60px;" style="margin: 10px 10px 0 0"></a></li>
                     <li><a class="navbar-brand" href="/">码农社区</a></li>
                     <li class="navtitle"><a href="/">首页</a></li>
                     <li class="dropdown megamenu-fw">
@@ -148,8 +149,9 @@
                         </ul>
                     </li>
                     <li th:if="${session.user == null}">
-                        <a href="https://github.com/login/oauth/authorize?client_id=d921b8f218b9e6f06073&redirect_uri=http://localhost/callback&state=1&scope=user">登陆</a>
-                        <!--<a href="https://github.com/login/oauth/authorize?client_id=10452eda4e3ceb4897c2&redirect_uri=http://seagold.top/callback&state=1&scope=user">登陆</a>-->
+                        <a href="/home/login">登陆</a>
+                    <!--<a href="https://github.com/login/oauth/authorize?client_id=10452eda4e3ceb4897c2&redirect_uri=http://seagold.top/callback&state=1&scope=user">登陆</a>-->
+
                     </li>
 
                 </ul>

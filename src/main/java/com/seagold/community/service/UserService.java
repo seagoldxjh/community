@@ -9,6 +9,7 @@
  */
 package com.seagold.community.service;
 
+import com.seagold.community.dto.QQUser;
 import com.seagold.community.dto.WeiBoUser;
 import com.seagold.community.entity.User;
 
@@ -34,4 +35,6 @@ public interface UserService {
     void logout(HttpServletRequest request, HttpServletResponse response);
     int weiboUser(WeiBoUser weiBoUser,HttpServletResponse response,
                   HttpSession session);
+    int qqUser(QQUser qqUser, HttpServletResponse response,
+               HttpSession session);
 }

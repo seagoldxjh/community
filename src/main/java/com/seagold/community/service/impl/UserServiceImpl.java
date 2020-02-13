@@ -10,6 +10,7 @@
 package com.seagold.community.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.seagold.community.dto.QQUser;
 import com.seagold.community.dto.WeiBoUser;
 import com.seagold.community.entity.User;
 import com.seagold.community.mapper.UserMapper;
@@ -106,6 +107,37 @@ public class UserServiceImpl implements UserService {
         user.setAccountId(String.valueOf(weiBoUser.getUuid()));
         user.setName(weiBoUser.getUsername());
         user.setHeadImg(weiBoUser.getAvatar());
+        String token = UUID.randomUUID().toString();
+        user.setToken(token);
+
+        User findUser = findByAccountId(user.getAccountId());
+        if (findUser == null){
+            insert(user);
+        }else {
+            user.setId(findUser.getId());
+            updateById(user);
+        }
+
+        session.setAttribute("user", user);
+        Cookie cookie = new Cookie("token", token);
+        cookie.setMaxAge(60*60*24*3);
+        response.addCookie(cookie);
+        autoLogin(user);
+
+
+        return 200;
+    }
+
+    @Override
+    public int qqUser(QQUser qqUser, HttpServletResponse response, HttpSession session) {
+        if(qqUser == null || qqUser.getUuid() == null){
+            return 400;
+        }
+
+        User user = new User();
+        user.setAccountId(String.valueOf(qqUser.getUuid()));
+        user.setName(qqUser.getUsername());
+        user.setHeadImg(qqUser.getAvatar());
         String token = UUID.randomUUID().toString();
         user.setToken(token);
 

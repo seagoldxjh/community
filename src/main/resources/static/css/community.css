@@ -5,8 +5,9 @@ body {
 .main {
     background-color: #FFFFFF;
     margin: 60px;
-    width: 80%;
+    width: 70%;
     margin: auto;
+    opacity: 0.86;
 }
 
 .sidex {
@@ -191,6 +192,12 @@ svg {
     height: 130px;
     display: block;
     margin: auto auto 50px;
+}
+
+
+
+#live2dcanvas {
+    border: 0 !important;
 }
 
 

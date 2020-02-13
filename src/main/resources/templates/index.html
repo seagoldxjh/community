@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:wb="http://open.weibo.com/wb">
 <head>
     <meta charset="UTF-8">
     <title>码农社区</title>
@@ -12,7 +12,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/community.js"></script>
 
-
+    <script src="https://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 
     <link href="css/bootsnav.css" rel="stylesheet">
     <link href="css/color.css" rel="stylesheet">
@@ -142,12 +142,14 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sidex">
                     <hr>
                     <h4>友情链接</h4>
-                    <a href="https://github.com/seagoldxjh" target="_blank" style="text-decoration: none; color: #777; display: block; margin: 20px;">作者GitHub</a>
+                    <hr>
+                    <a href="https://github.com/seagoldxjh" target="_blank" style="text-decoration: none; color: #777; display: block; margin: 0px;">作者GitHub账号</a>
+                    <br>
+                    关注作者新浪微博:<wb:follow-button uid="5157063963" type="red_1" width="240" height="24"></wb:follow-button>
                 </div>
             </div>
         </div>
     </div>
-
     <div th:insert="~{footer :: foot}" style="margin-bottom: 0px;"></div>
 </body>
 

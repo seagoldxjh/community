@@ -46,13 +46,16 @@
                         <a href="/">最新</a>
                     </li>
                     <li role="presentation" th:class="${sort == 'hot30' ? 'active':''}">
-                        <a th:href="@{/(sort='hot30')}">30天最热</a>
+                        <a th:href="@{/(sort='hot30')}">月榜</a>
                     </li>
                     <li role="presentation" th:class="${sort == 'hot7' ? 'active':''}">
-                        <a th:href="@{/(sort='hot7')}">7天最热</a>
+                        <a th:href="@{/(sort='hot7')}">周榜</a>
                     </li>
                     <li role="presentation" th:class="${sort == 'hot' ? 'active':''}">
                         <a th:href="@{/(sort='hot')}">最热</a>
+                    </li>
+                    <li role="presentation" th:class="${sort == 'choice' ? 'active':''}">
+                        <a th:href="@{/(sort='choice')}">精华</a>
                     </li>
                     <li role="presentation" th:class="${sort == 'no' ? 'active':''}">
                         <a th:href="@{/(sort='no')}" class="red">消灭零回复</a>
@@ -69,11 +72,16 @@
                     <div class="media-body" style="padding-left: 20px;">
                         <h4 class="media-heading" >
                             <a th:href="@{'question/'+${question.id}}" th:text="${question.title}" style="color: #333;"></a>
+                            <span th:if="${question.choice == 1}" style="background-color: red; color: #fff; font-size: .85714286rem; padding: 2px 4px; margin-left: 5px;" >精</span>
+
                         </h4>
                         <span class="text-desc"><span th:text="${question.commentCount}"></span> 个回复 • <span
                                 th:text="${question.viewCount}"></span> 次浏览 • <span
                                 th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span>
                     </div>
+                    <!--<div class="media-right" th:if="${question.choice == 1}">-->
+                        <!--<span style="background-color: red; color: #fff; font-size: .85714286rem; padding: 2px 4px; margin-left: 5px;">精</span>-->
+                    <!--</div>-->
                 </div>
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
@@ -137,7 +145,7 @@
 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sidex" >
                     <h4>🔥热门标签</h4>
-                    <a th:each="tag : ${tags}" th:href="@{/(tag=${tag})}" th:text="${tag}" class="community-tag" style="font-size: 16px; color: #ebebeb;"></a>
+                    <a th:each="tag : ${tags}" th:href="@{/(tag=${tag})}" th:text="${tag}" class="community-tag" style="color: #ebebeb;"></a>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sidex">
                     <hr>

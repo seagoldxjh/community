@@ -33,5 +33,6 @@ public class QuestionDTO {
     private int commentCount;
     private int likeCount;
     private String headImg;
+    private Integer choice;
     private User user;
 }

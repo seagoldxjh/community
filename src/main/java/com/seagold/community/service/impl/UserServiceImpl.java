@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = new User();
-        user.setAccountId(String.valueOf(qqUser.getUuid()));
+        user.setAccountId(qqUser.getUuid());
         user.setName(qqUser.getUsername());
         user.setHeadImg(qqUser.getAvatar());
         String token = UUID.randomUUID().toString();

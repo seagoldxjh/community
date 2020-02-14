@@ -153,14 +153,14 @@ body {
     text-decoration-line: none;
     cursor: pointer;
     display: inline-block;
-    height: 30px;
-    line-height: 22px;
-    padding: 3px 5px;
+    height: 20px;
+    line-height: 16px;
+    padding: 2px 5px;
     background-color: #99cfff;
     font-size: 12px;
     color: #fff !important;
     border-radius: 4px;
-    margin: 8px;
+    margin: 4px;
 }
 
 .report {

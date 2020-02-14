@@ -35,4 +35,5 @@ public class Question {
     private int commentCount;
     private int likeCount;
     private String headImg;
+    private Integer choice;
 }

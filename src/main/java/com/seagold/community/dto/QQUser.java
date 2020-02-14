@@ -21,7 +21,7 @@ import lombok.Data;
  */
 @Data
 public class QQUser {
-    private Long uuid;
+    private String uuid;
     private String username;
     //描述
 //    private String bio;

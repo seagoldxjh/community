@@ -211,6 +211,7 @@ public class QuestionController {
                                        @RequestParam(value = "size",defaultValue = "10") int size,
                                        @RequestParam(value = "sort") String sort,
                                        Model model){
+        System.out.println(sort);
         PageHelper.startPage(page, size);
         List<Question> questions = questionService.searchQuestionsBySort(sort);
         PageInfo<Question> pageInfo = new PageInfo<>(questions);

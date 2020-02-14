@@ -246,11 +246,15 @@
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h3>你可能感兴趣的问题</h3>
-                <ul class="question-related list-group">
-                    <li th:each="related : ${relatedQuestions}"  class="list-group-item">
-                        <a th:href="@{'/question/'+ ${related.id}}" th:text="${related.title}"></a>
-                    </li>
-                </ul>
+
+                <a th:each="related : ${relatedQuestions}" th:href="@{'/question/'+ ${related.id}}" th:text="${related.title}" class='btn btn-outline-success btn-sm' style="color: #333d53; display: block; text-align: left;max-width: 85%;overflow: hidden;text-overflow: ellipsis"></a>
+
+                <hr>
+                <!--<ul class="question-related list-group">-->
+                    <!--<li th:each="related : ${relatedQuestions}"  class="list-group-item">-->
+                        <!--<a th:href="@{'/question/'+ ${related.id}}" th:text="${related.title}"></a>-->
+                    <!--</li>-->
+                <!--</ul>-->
             </div>
         </div>
     </div>

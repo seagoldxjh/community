@@ -73,6 +73,12 @@ public class QuestionServiceImpl implements QuestionService {
             return questionMapper.selectList(wrapper);
         }
 
+        if (SortEnum.CHOICE.name().toLowerCase().equals(sort)){
+            System.out.println("进入精华");
+            wrapper.orderByDesc("gmt_create").eq("choice", 1);
+            return questionMapper.selectList(wrapper);
+        }
+
         wrapper.orderByDesc("view_count","comment_count");
         if (SortEnum.HOT7.name().toLowerCase().equals(sort)){
             wrapper.gt("gmt_create", System.currentTimeMillis() - 1000L * 60 * 60 * 24 * 7);
@@ -205,6 +211,7 @@ public class QuestionServiceImpl implements QuestionService {
             wrapper.orderByDesc("gmt_create").eq("comment_count", 0);
             return questionMapper.selectList(wrapper);
         }
+
 
         wrapper.orderByDesc("view_count","comment_count");
         if (SortEnum.HOT7.name().toLowerCase().equals(sort)){

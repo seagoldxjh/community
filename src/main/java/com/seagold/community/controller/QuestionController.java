@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -125,8 +126,19 @@ public class QuestionController {
      * @return
      */
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable(name = "id") Long id,Model model){
+    public String edit(@PathVariable(name = "id") Long id, Model model, HttpSession session){
+        User user = (User)session.getAttribute("user");
+        if (user == null){
+            model.addAttribute("message","您还未登陆");
+            return "error";
+        }
         QuestionDTO questionDTO = questionService.findById(id);
+
+        if (!questionDTO.getUser().getId().equals(user.getId())){
+            model.addAttribute("message","这好像不是你的问题吧!");
+            return "error";
+        }
+
         model.addAttribute("title", questionDTO.getTitle());
         model.addAttribute("description", questionDTO.getDescription());
         model.addAttribute("tag", questionDTO.getTag());

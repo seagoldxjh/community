@@ -60,6 +60,21 @@ function collection(btn){
 
 
 /**
+ * 进行点赞
+ */
+function like(obj) {
+    var likedUserId = obj.getAttribute("data-id");
+    $.ajax({
+        type : "GET",
+        url : "/like/" + likedUserId,
+        success: function (msg) {
+            console.log(msg)
+        }
+    })
+}
+
+
+/**
  * 展开二级评论
  */
 function collapseComments(e) {

@@ -121,6 +121,7 @@ public class UserServiceImpl implements UserService {
         session.setAttribute("user", user);
         Cookie cookie = new Cookie("token", token);
         cookie.setMaxAge(60*60*24*3);
+        cookie.setPath("/");
         response.addCookie(cookie);
         autoLogin(user);
 
@@ -152,6 +153,7 @@ public class UserServiceImpl implements UserService {
         session.setAttribute("user", user);
         Cookie cookie = new Cookie("token", token);
         cookie.setMaxAge(60*60*24*3);
+        cookie.setPath("/");
         response.addCookie(cookie);
         autoLogin(user);
 

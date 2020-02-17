@@ -160,12 +160,6 @@ public class MybatisConfig {
 </script>
 ```
 
-## 环境切换
-1. Git Oauth地址切换
-2. login redirect_uri地址切换
-3. application.properties
-   - github.redirect.uri地址切换
-   - http://localhost:8080/callback
    
 ## 每日热门标签
 1. 引入定时任务并开启

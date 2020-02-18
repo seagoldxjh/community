@@ -59,4 +59,12 @@ public interface RedisService {
      * @return
      */
     Integer getLikedStatus(String likedUserId,String likedPostId);
+
+    /**
+     * 获取某个id的点赞总数量
+     * @param likedUserId
+     * @return
+     */
+    Integer getLikedCount(String likedUserId);
+
 }

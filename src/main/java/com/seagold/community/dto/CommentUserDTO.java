@@ -32,4 +32,6 @@ public class CommentUserDTO {
     private String content;
     private User user;
     private Integer commentCount;
+    private Integer status;
+    private Integer likedCount = 0;
 }

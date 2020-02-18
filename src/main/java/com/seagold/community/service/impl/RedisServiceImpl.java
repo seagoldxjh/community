@@ -114,4 +114,10 @@ public class RedisServiceImpl implements RedisService {
         String key = RedisKeyUtils.getLikedKey(likedUserId, likedPostId);
         return (Integer) redisTemplate.opsForHash().get(RedisKeyUtils.MAP_KEY_USER_LIKED, key);
     }
+
+    @Override
+    public Integer getLikedCount(String likedUserId) {
+        return (Integer) redisTemplate.opsForHash().get(RedisKeyUtils.MAP_KEY_USER_LIKED_COUNT, likedUserId);
+    }
+
 }

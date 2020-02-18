@@ -143,10 +143,12 @@
                             </h5>
                             <div th:text="${comment.content}"></div>
                             <div class="menu">
-                                <span class="glyphicon glyphicon-thumbs-up icon" th:data-id="${comment.id}" onclick="like(this)">
-
-                                </span>
                                 <span th:data-id="${comment.id}"
+                                      onclick="like(this)" class="comment-icon" th:classappend="${comment.status==1 ? 'liked' : ''}">
+                                    <span class="glyphicon glyphicon-thumbs-up icon"></span>
+                                    <span th:text="${comment.likedCount}"></span>
+                                </span>
+                                <span th:data-id="${comment.id}" style="margin-left: 10px;"
                                       onclick="collapseComments(this)" class="comment-icon">
                                     <span class="glyphicon glyphicon-comment"></span>
                                     <span th:text="${comment.commentCount}"></span>

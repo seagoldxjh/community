@@ -54,6 +54,25 @@ public class LikedController {
     }
 
     /**
+     * 取消点赞
+     * @param likedUserId
+     * @param session
+     * @return
+     */
+    @GetMapping("/unlike/{likedUserId}")
+    @ResponseBody
+    public JsonData saveUnLikedRedis(@PathVariable(value = "likedUserId")String likedUserId, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if (user == null){
+            return JsonData.buildError("请先登录后取消点赞",200);
+        }
+
+        redisService.unlikeFromRedis(likedUserId, String.valueOf(user.getId()));
+        redisService.decrementLikedCount(likedUserId);
+        return JsonData.buildSuccess("取消点赞成功");
+    }
+
+    /**
      * 查询用户是否点赞过此ID
      * @return
      */

@@ -64,13 +64,30 @@ function collection(btn){
  */
 function like(obj) {
     var likedUserId = obj.getAttribute("data-id");
-    $.ajax({
-        type : "GET",
-        url : "/like/" + likedUserId,
-        success: function (msg) {
-            console.log(msg)
-        }
-    })
+    var flag =  $(obj).hasClass("liked");
+    var liked_count = Number($(obj).find('span').eq(1).text())
+    if (!flag){
+        $.ajax({
+            type : "GET",
+            url : "/like/" + likedUserId,
+            success: function (msg) {
+                console.log(msg)
+                $(obj).addClass("liked")
+                $(obj).find('span').eq(1).text(liked_count+1)
+            }
+        })
+    } else {
+        $.ajax({
+            type : "GET",
+            url : "/unlike/" + likedUserId,
+            success: function (msg) {
+                console.log(msg)
+                $(obj).removeClass("liked")
+                $(obj).find('span').eq(1).text(liked_count-1)
+            }
+        })
+    }
+
 }
 
 

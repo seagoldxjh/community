@@ -194,7 +194,9 @@ svg {
     margin: auto auto 50px;
 }
 
-
+.liked {
+    color: #499ef3;
+}
 
 #live2dcanvas {
     border: 0 !important;

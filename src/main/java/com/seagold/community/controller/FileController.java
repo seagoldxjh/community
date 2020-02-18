@@ -10,6 +10,8 @@
 package com.seagold.community.controller;
 
 import com.seagold.community.dto.FileDTO;
+import com.seagold.community.service.impl.RedisServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +33,9 @@ import java.util.UUID;
  */
 @Controller
 public class FileController {
+
+    @Autowired
+    private RedisServiceImpl redisService;
 
     @RequestMapping("/file/upload")
     @ResponseBody
@@ -60,4 +65,5 @@ public class FileController {
         fileDTO.setUrl(request.getContextPath()+"/upload/"+newFileName);
         return fileDTO;
     }
+
 }

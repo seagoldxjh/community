@@ -20,6 +20,7 @@ import com.seagold.community.entity.Question;
 import com.seagold.community.entity.User;
 import com.seagold.community.service.CommentService;
 import com.seagold.community.service.QuestionService;
+import com.seagold.community.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -53,6 +53,9 @@ public class QuestionController {
 
     @Autowired
     private HotTagCache hotTagCache;
+
+    @Autowired
+    private RedisService redisService;
 
     /**
      * post方式提交用户发起的问题
@@ -240,7 +243,7 @@ public class QuestionController {
      * @return
      */
     @RequestMapping("/question/{id}")
-    public String question(@PathVariable(name = "id") Long id,Model model){
+    public String question(@PathVariable(name = "id") Long id,Model model,HttpSession session){
         QuestionDTO question = questionService.findById(id);
         if (question == null){
             model.addAttribute("message","该问题不存在或已被删除");
@@ -250,6 +253,24 @@ public class QuestionController {
 
 
         List<CommentUserDTO> comments = commentService.findAllById(id, 1);
+
+        /**
+         * 用户如登陆，便查询该问题下所有评论的点赞关系
+         */
+        User user = (User)session.getAttribute("user");
+        if (user != null && user.getId()!= null){
+            for (CommentUserDTO commentUserDTO : comments){
+                Integer likedStatus = redisService.getLikedStatus(String.valueOf(commentUserDTO.getId()), String.valueOf(user.getId()));
+                commentUserDTO.setStatus(likedStatus);
+            }
+        }
+
+        for (CommentUserDTO commentUserDTO : comments) {
+            Integer likedCount = redisService.getLikedCount(String.valueOf(commentUserDTO.getId()));
+            if (likedCount != null) {
+                commentUserDTO.setLikedCount(likedCount);
+            }
+        }
         model.addAttribute("comments",comments);
 
         List<Question> relatedQuestions = questionService.selectRelated(question.getTag());
@@ -258,14 +279,5 @@ public class QuestionController {
         return "question";
     }
 
-    /**
-     * 用于测试上一个方法的Json方便调试,本身无意义
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("tt")
-    public List<CommentUserDTO> hh(){
-        List<CommentUserDTO> comments = commentService.findAllById(42L, 1);
-        return comments;
-    }
+
 }

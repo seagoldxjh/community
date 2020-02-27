@@ -131,7 +131,7 @@ public class MybatisConfig {
         });
     });
 </script>
-
+ 
 <script type="text/javascript">
    $(function () {
        var editor = editormd("question-editor", {

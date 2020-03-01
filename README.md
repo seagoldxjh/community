@@ -2,7 +2,7 @@
 community of study
 ### [社区地址](http://seagold.top)   
   
-## github授权登陆模块（OAuth2.0）
+## OAuth授权登陆模块
 1. 用户点击登陆按钮，请求github提供的authorize接口，需要提供的参数
    - client_id: github生成的
    - redirect_uri: 自己设置的回调接口地址 
@@ -20,7 +20,7 @@ community of study
 5. 利用access_token请求github提供的user接口
    https://api.github.com/user?access_token=xxxxx   Get方式
 6. 返回Git用户，存入数据，更新登陆状态
-   
+  
 ## Redis实现用户三天免登陆 
 1. 用户登陆成功后,利用UUID生成token,将token放入cookie中并设置3天有效期
 ```java
@@ -131,7 +131,7 @@ public class MybatisConfig {
         });
     });
 </script>
-
+ 
 <script type="text/javascript">
    $(function () {
        var editor = editormd("question-editor", {
@@ -171,9 +171,9 @@ public class MybatisConfig {
 4. 访问首页曲中redis数据库中热门标签展示 
  
   
-## 一周最热话题
+## 一周最热话题&点赞关系存储
 1. 引入定时任务
-2. 根据浏览量 or 评论数查询一周内数量最高的50条数据
+2. 定时查询和存储Redis数据
 
 
 ## 未完待续...

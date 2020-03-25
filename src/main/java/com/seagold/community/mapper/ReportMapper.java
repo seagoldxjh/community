@@ -11,6 +11,9 @@ package com.seagold.community.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.seagold.community.entity.Report;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -21,5 +24,7 @@ import com.seagold.community.entity.Report;
  * @since 1.0.0
  */
 public interface ReportMapper extends BaseMapper<Report> {
-
+    List<Report> findAllReports();
+    void updateReportStatus(@Param("status")int status,
+                            @Param("questionId")int questionId);
 }

@@ -9,8 +9,18 @@
  */
 package com.seagold.community.controller.admin;
 
+import com.seagold.community.entity.Report;
+import com.seagold.community.service.ReportService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -24,8 +34,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @RequestMapping("/report")
-    public String page(){
+    @Autowired
+    private ReportService reportService;
+
+    @GetMapping("/report")
+    public String page(Model model){
+        List<Report> allReports = reportService.findAllReports();
+        model.addAttribute("Reports",allReports);
         return "admin";
+    }
+
+    @ResponseBody
+    @GetMapping("/report/{status}")
+    public void reportStatus(@PathVariable(value = "status")int status, @RequestParam("questionId")int questionId){
+        reportService.updateReportStatus(status, questionId);
     }
 }

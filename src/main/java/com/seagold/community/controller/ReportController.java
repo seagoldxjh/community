@@ -119,4 +119,5 @@ public class ReportController {
         reportService.addReport(report);
         return "redirect:/question/" + report.getQuestionId();
     }
+
 }

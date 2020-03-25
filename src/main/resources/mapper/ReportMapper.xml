@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seagold.community.mapper.ReportMapper">
+
+    <select id="findAllReports" resultType="com.seagold.community.entity.Report">
+          select * from report order by gmt_create desc;
+    </select>
+
+    <update id="updateReportStatus">
+          update report set report_status = #{status} where question_id = #{questionId}
+    </update>
+
+</mapper>

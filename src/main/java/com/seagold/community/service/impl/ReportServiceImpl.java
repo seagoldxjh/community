@@ -12,9 +12,12 @@ package com.seagold.community.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.seagold.community.entity.Report;
 import com.seagold.community.mapper.ReportMapper;
+import com.seagold.community.service.QuestionService;
 import com.seagold.community.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -29,6 +32,12 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private ReportMapper reportMapper;
 
+    @Autowired
+    private QuestionService questionService;
+
+    public static final int DELETE_STATUS = 2;
+
+
     @Override
     public Report isReport(Report report) {
         QueryWrapper<Report> wrapper = new QueryWrapper<>();
@@ -40,5 +49,18 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public void addReport(Report report) {
         reportMapper.insert(report);
+    }
+
+    @Override
+    public List<Report> findAllReports() {
+        return reportMapper.findAllReports();
+    }
+
+    @Override
+    public void updateReportStatus(int status, int questionId) {
+        reportMapper.updateReportStatus(status, questionId);
+        if (status == DELETE_STATUS){
+
+        }
     }
 }

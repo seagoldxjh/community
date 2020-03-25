@@ -32,4 +32,5 @@ public class Report {
     private Long reportCreator;
     private String reportUser;
     private Long gmtCreate;
+    private Integer reportStatus;
 }

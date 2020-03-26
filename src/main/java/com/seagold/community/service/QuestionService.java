@@ -49,4 +49,11 @@ public interface QuestionService {
     List<Question> searchQuestionsByTag(String tag);
 
     List<Question> searchQuestionsBySort(String sort);
+
+    /**
+     * 根据问题id删除问题
+     * @param questionId 问题id
+     * @return
+     */
+    int deleteQuestion(int questionId);
 }

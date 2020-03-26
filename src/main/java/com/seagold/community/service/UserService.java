@@ -37,4 +37,5 @@ public interface UserService {
                   HttpSession session);
     int qqUser(QQUser qqUser, HttpServletResponse response,
                HttpSession session);
+
 }

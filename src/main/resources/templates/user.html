@@ -35,16 +35,16 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="menu-title">帖子管理</li><!-- /.menu-title -->
-                    <li class="active">
+                    <li>
                         <a href="/admin/report"> <i class="menu-icon fa fa-table"></i>举报处理</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>所有帖子</a>
                     </li>
 
-                    <li class="menu-title">用户管理</li><!-- /.menu-title -->
+                    <li class="menu-title" >用户管理</li><!-- /.menu-title -->
 
-                    <li>
+                    <li  class="active">
                         <a href="/admin/user"> <i class="menu-icon ti-email"></i>所有用户 </a>
                     </li>
 
@@ -144,31 +144,19 @@
                                     <thead>
                                         <tr>
                                             <!--<th>问题id</th>-->
-                                            <th>问题标题</th>
-                                            <th>举报类型</th>
-                                            <th>详细描述</th>
-                                            <th>举报者</th>
-                                            <th>举报时间</th>
-                                            <th>处理状态</th>
+                                            <th>用户id</th>
+                                            <th>用户昵称</th>
+                                            <th>用户类型</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="report : ${Reports}">
+                                        <tr th:each="user : ${users}">
                                             <!--<td th:text="${report.questionId}"></td>-->
-                                            <td th:text="${report.questionTitle}" style="width: 20px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;"></td>
-                                            <td th:text="${report.reportType}"></td>
-                                            <td th:text="${report.reportDetails}"></td>
-                                            <td th:text="${report.reportUser}"></td>
-                                            <td th:text="${#dates.format(report.gmtCreate,'yyyy-MM-dd HH:mm')}"></td>
-                                            <td th:if="${report.reportStatus == 0}">未处理</td>
-                                            <td th:if="${report.reportStatus == 1}">无违规</td>
-                                            <td th:if="${report.reportStatus == 2}">已删除</td>
-                                            <td>
-                                                <a class="btn btn-outline-primary" target="_blank" th:href="@{'../question/'+${report.questionId}}" role="button">查看</a>
-                                                <button class="btn btn-outline-danger" th:attr="btn_id = ${report.questionId}" onclick="deleteReport(this)">删除</button>
-                                                <button class="btn btn-outline-info" th:attr="btn_id = ${report.questionId}" onclick="unReport(this)">正常</button>
-                                            </td>
+                                            <td th:text="${user.id}" style="width: 20px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;"></td>
+                                            <td th:text="${user.name}"></td>
+                                            <td th:text="${user.headImg}"></td>
+
                                         </tr>
                                     </tbody>
                                 </table>

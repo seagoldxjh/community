@@ -35,7 +35,7 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private QuestionService questionService;
 
-    public static final int DELETE_STATUS = 2;
+    private static final int DELETE_STATUS = 2;
 
 
     @Override
@@ -60,7 +60,7 @@ public class ReportServiceImpl implements ReportService {
     public void updateReportStatus(int status, int questionId) {
         reportMapper.updateReportStatus(status, questionId);
         if (status == DELETE_STATUS){
-
+            questionService.deleteQuestion(questionId);
         }
     }
 }

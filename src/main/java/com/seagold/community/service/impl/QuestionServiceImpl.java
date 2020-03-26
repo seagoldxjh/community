@@ -224,4 +224,9 @@ public class QuestionServiceImpl implements QuestionService {
 
         return questionMapper.selectList(wrapper);
     }
+
+    @Override
+    public int deleteQuestion(int questionId) {
+        return questionMapper.deleteById(questionId);
+    }
 }

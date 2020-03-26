@@ -10,7 +10,9 @@
 package com.seagold.community.controller.admin;
 
 import com.seagold.community.entity.Report;
+import com.seagold.community.entity.User;
 import com.seagold.community.service.ReportService;
+import com.seagold.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +39,9 @@ public class AdminController {
     @Autowired
     private ReportService reportService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/report")
     public String page(Model model){
         List<Report> allReports = reportService.findAllReports();
@@ -48,5 +53,12 @@ public class AdminController {
     @GetMapping("/report/{status}")
     public void reportStatus(@PathVariable(value = "status")int status, @RequestParam("questionId")int questionId){
         reportService.updateReportStatus(status, questionId);
+    }
+
+    @GetMapping("user")
+    public String userPage(Model model){
+        List<User> users = userService.findAll();
+        model.addAttribute("users",users);
+        return "user";
     }
 }

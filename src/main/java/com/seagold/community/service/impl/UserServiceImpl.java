@@ -161,4 +161,9 @@ public class UserServiceImpl implements UserService {
         return 200;
     }
 
+    @Override
+    public int updateReportStatus(int id) {
+        return userMapper.updateReportStatus(id);
+    }
+
 }

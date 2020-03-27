@@ -38,4 +38,11 @@ public interface UserService {
     int qqUser(QQUser qqUser, HttpServletResponse response,
                HttpSession session);
 
+    /**
+     * 根据id修改账号状态
+     * @param id
+     * @return
+     */
+    int updateReportStatus(int id);
+
 }

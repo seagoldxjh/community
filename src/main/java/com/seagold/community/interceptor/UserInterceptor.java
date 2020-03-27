@@ -10,13 +10,12 @@
 package com.seagold.community.interceptor;
 
 import com.seagold.community.entity.User;
-import com.seagold.community.service.NotificationService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,35 +27,25 @@ import javax.servlet.http.HttpServletResponse;
  * @create 2019-08-15
  * @since 1.0.0
  */
-public class LoginInterceptor implements HandlerInterceptor {
+@Slf4j
+public class UserInterceptor implements HandlerInterceptor {
 
     @Autowired
-    RedisTemplate<Object,Object> redisTemplate;
+    private  RedisTemplate<Object,Object> redisTemplate;
 
-    @Autowired
-    private NotificationService notificationService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+        User user = (User)request.getSession().getAttribute("user");
 
-        Cookie[] cookies = request.getCookies();
-        if (cookies == null || cookies.length==0){
-            return true;
+        if (user != null){
+            Long id = user.getId();
+            System.out.println("登录用户id"+id);
         }
-        for (Cookie cookie : cookies) {
-            if("token".equals(cookie.getName())){
-                String token = cookie.getValue();
-                User o = (User)redisTemplate.opsForValue().get(token);
-                System.out.println(o);
-                if(o != null){
-                    request.getSession().setAttribute("user", o);
-                    Integer unreadCount = notificationService.unreadCount(o.getId());
-                    request.getSession().setAttribute("unreadCount",unreadCount);
-                }
-                break;
-            }
-        }
+
+        request.getSession().setAttribute("error", "账号已被封禁");
+        response.sendRedirect("error");
         return true;
     }
 

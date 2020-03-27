@@ -20,5 +20,5 @@ import com.seagold.community.entity.User;
  * @since 1.0.0
  */
 public interface UserMapper extends BaseMapper<User> {
-
+    int updateReportStatus(int id);
 }

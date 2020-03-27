@@ -20,6 +20,8 @@
         <h1>出错啦</h1>
         <br>
         <p th:text="${message}">服务太热啦，要不然稍等下再来试试~</p>
+        <p th:text="${session.error}">服务太热啦，要不然稍等下再来试试~</p>
+        <p th:if="${error}">服务太热啦，要不然稍等下再来试试~</p>
         <br>
         <p><a class="btn btn-primary btn-lg" href="/" role="button">回到主页</a></p>
     </div>

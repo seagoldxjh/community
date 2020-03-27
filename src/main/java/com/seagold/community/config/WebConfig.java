@@ -10,6 +10,7 @@
 package com.seagold.community.config;
 
 import com.seagold.community.interceptor.LoginInterceptor;
+import com.seagold.community.interceptor.UserInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -32,6 +33,9 @@ public class WebConfig implements WebMvcConfigurer {
         return new LoginInterceptor();
     }
 
+    @Bean
+    public UserInterceptor userInterceptor(){return new UserInterceptor(); }
+
     //需要拦截的路径，默认为全部
     String[] addPathPatterns = {
             "/","/index.html"
@@ -47,6 +51,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(loginInterceptor())
                 .addPathPatterns(addPathPatterns)
                 .excludePathPatterns(excludePathPatterns);
+        registry.addInterceptor(userInterceptor()).addPathPatterns(addPathPatterns);
     }
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

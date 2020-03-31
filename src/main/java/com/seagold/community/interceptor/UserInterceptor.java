@@ -44,6 +44,10 @@ public class UserInterceptor implements HandlerInterceptor {
             System.out.println("登录用户id"+id);
         }
 
+        /**
+         *  redis封禁账号列表查询
+         */
+
         request.getSession().setAttribute("error", "账号已被封禁");
         response.sendRedirect("error");
         return true;

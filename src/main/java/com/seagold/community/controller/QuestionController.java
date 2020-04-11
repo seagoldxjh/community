@@ -265,6 +265,8 @@ public class QuestionController {
             }
         }
 
+
+
         for (CommentUserDTO commentUserDTO : comments) {
             Integer likedCount = redisService.getLikedCount(String.valueOf(commentUserDTO.getId()));
             if (likedCount != null) {

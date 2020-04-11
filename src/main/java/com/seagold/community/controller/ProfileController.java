@@ -42,6 +42,7 @@ public class ProfileController {
     @Autowired
     private QuestionService questionService;
 
+
     @Autowired
     private NotificationService notificationService;
 
@@ -92,10 +93,7 @@ public class ProfileController {
             List<CollectsDTO> collects = collectionService.collects(user.getId());
             PageInfo<CollectsDTO> pageInfo = new PageInfo<>(collects);
             model.addAttribute("pageInfo", pageInfo);
-//            List<CollectsDTO> list = pageInfo.getList();
-//            for(CollectsDTO item : list){
-//                System.out.println(item);
-//            }
+
         }
 
 

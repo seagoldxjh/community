@@ -42,14 +42,14 @@ public class UserInterceptor implements HandlerInterceptor {
         if (user != null){
             Long id = user.getId();
             System.out.println("登录用户id"+id);
+            Object userStatus =  redisTemplate.opsForHash().get("MAP_USER_CLOSE", String.valueOf(id));
+            if (userStatus != null && userStatus.equals(1)){
+                request.getSession().setAttribute("error", "账号已被封禁");
+                request.getRequestDispatcher("/error").forward(request, response);
+                return false;
+            }
         }
 
-        /**
-         *  redis封禁账号列表查询
-         */
-
-        request.getSession().setAttribute("error", "账号已被封禁");
-        response.sendRedirect("error");
         return true;
     }
 

@@ -48,10 +48,15 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
         registry.addInterceptor(loginInterceptor())
                 .addPathPatterns(addPathPatterns)
                 .excludePathPatterns(excludePathPatterns);
-        registry.addInterceptor(userInterceptor()).addPathPatterns(addPathPatterns);
+
+        registry.addInterceptor(userInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/error","/static/**","/css/**","/js/**");
+
     }
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

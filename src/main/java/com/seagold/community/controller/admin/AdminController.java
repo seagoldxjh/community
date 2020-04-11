@@ -74,7 +74,7 @@ public class AdminController {
 
         int i = userService.updateReportStatus(id);
         if (1 == i){
-            redisTemplate.opsForList().leftPush("userClose", id);
+            redisTemplate.opsForHash().put("MAP_USER_CLOSE",String.valueOf(id),1);
             return JsonData.buildSuccess("封禁成功");
         }
         return JsonData.buildError("账号被存在或已封禁");

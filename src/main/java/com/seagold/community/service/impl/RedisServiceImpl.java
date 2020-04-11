@@ -38,8 +38,6 @@ public class RedisServiceImpl implements RedisService {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    /*@Autowired
-    private LikedService likedService;*/
 
     @Override
     public void saveLikedRedis(String likedUserId, String likedPostId) {

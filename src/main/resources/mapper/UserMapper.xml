@@ -3,7 +3,7 @@
 <mapper namespace="com.seagold.community.mapper.UserMapper">
 
     <update id="updateReportStatus" parameterType="int">
-          update user set status = 1 where id = #{id}
+          update user set status = 1 where id = #{id} and status != 1
     </update>
 
 </mapper>

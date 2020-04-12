@@ -21,4 +21,6 @@ import com.seagold.community.entity.User;
  */
 public interface UserMapper extends BaseMapper<User> {
     int updateReportStatus(int id);
+
+    int queryUserViolationCount(Long id);
 }

@@ -41,8 +41,15 @@ public interface UserService {
     /**
      * 根据id修改账号状态
      * @param id
-     * @return
+     * @return 修改成功返回1，否则返回0
      */
     int updateReportStatus(int id);
+
+    /**
+     * 根据id查询用户违规次数
+     * @param id 用户id
+     * @return 用户违规次数
+     */
+    int queryUserViolationCount(Long id);
 
 }

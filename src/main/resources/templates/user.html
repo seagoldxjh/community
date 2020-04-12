@@ -147,16 +147,19 @@
                                             <th>用户id</th>
                                             <th>用户昵称</th>
                                             <th>用户账号来源</th>
+                                            <th>用户违规次数</th>
                                             <th>用户状态</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="user : ${users}">
+                                        <tr th:each="user,userStat : ${users}">
                                             <!--<td th:text="${report.questionId}"></td>-->
+
                                             <td th:text="${user.id}" style="width: 20px;white-space:nowrap;overflow:hidden;text-overflow: ellipsis;"></td>
                                             <td th:text="${user.name}"></td>
                                             <td th:text="${user.headImg}"></td>
+                                            <td th:text="${userViolation[userStat.index]}"></td>
                                             <td th:if="${user.status == 0}">正常</td>
                                             <td th:if="${user.status == 1}">封禁</td>
                                             <td>

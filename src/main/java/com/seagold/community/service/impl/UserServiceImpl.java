@@ -166,4 +166,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.updateReportStatus(id);
     }
 
+    @Override
+    public int queryUserViolationCount(Long id) {
+        return userMapper.queryUserViolationCount(id);
+    }
+
 }

@@ -6,4 +6,10 @@
           update user set status = 1 where id = #{id} and status != 1
     </update>
 
+    <select id="queryUserViolationCount" parameterType="long" resultType="int">
+        select count(1) from report where report_status = 2 and question_id in (
+          select q.id from user u inner join question q on u.id = q.creator where u.id = #{id}
+        )
+    </select>
+
 </mapper>

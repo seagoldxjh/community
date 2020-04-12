@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -65,6 +66,14 @@ public class AdminController {
     public String userPage(Model model){
         List<User> users = userService.findAll();
         model.addAttribute("users",users);
+
+        // 每个用户违规次数查询
+        List<Integer> userViolation = new LinkedList<>();
+        for (User user : users) {
+            Long id = user.getId();
+            userViolation.add(userService.queryUserViolationCount(id));
+        }
+        model.addAttribute("userViolation",userViolation);
         return "user";
     }
 

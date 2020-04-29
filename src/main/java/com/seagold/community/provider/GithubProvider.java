@@ -19,6 +19,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -33,6 +35,8 @@ import java.io.IOException;
 @Component
 @Slf4j
 public class GithubProvider {
+
+    private static final Logger loggger = LoggerFactory.getLogger(GithubProvider.class);
     /**
      * 使用okhttp发送post请求到github授权地址
      * @param accessTokenDTO
@@ -40,7 +44,6 @@ public class GithubProvider {
      */
     public String getAccessToken(AccessTokenDTO accessTokenDTO){
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
-
         OkHttpClient client = new OkHttpClient();
 
         RequestBody body = RequestBody.create(mediaType, JSON.toJSONString(accessTokenDTO));

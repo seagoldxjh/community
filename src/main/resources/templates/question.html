@@ -78,6 +78,10 @@
                 <button type="button" class="btn btn-info" id="btn1" th:value="${question.id}" onclick="collection(this)">收藏</button>
                 <a th:href="@{'/report/'+${question.id}}" target="_blank"><button type="button" class="btn btn-danger" id="btn2" th:value="${question.id}">举报</button></a>
             </span>
+            <span style="margin-left: 30%;" th:if="${session.user != null && session.user.id == 20}">
+                <button class="btn btn-outline-danger" th:attr="btn_id = ${question.id}" onclick="deleteReport(this)">删除</button>
+                <button class="btn btn-outline-danger" th:attr="btn_id = ${question.id}" onclick="addChoice(this)">加精</button>
+            </span>
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <!--标签-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -365,5 +369,28 @@
                     },
                     100)
         } ();
+</script>
+<script>
+    function deleteReport(obj){
+        var id = $(obj).attr("btn_id");
+        $.ajax({
+            type : "GET",
+            url : "/admin/report/" + 2,
+            data : {
+                "questionId" : id
+            }
+        })
+        window.location.reload()
+    }
+
+    function addChoice(obj) {
+        var id = $(obj).attr("btn_id");
+        $.ajax({
+            type : "GET",
+            url : "/admin/question/" + id
+        })
+        window.location.reload()
+    }
+
 </script>
 </html>

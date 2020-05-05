@@ -229,4 +229,9 @@ public class QuestionServiceImpl implements QuestionService {
     public int deleteQuestion(int questionId) {
         return questionMapper.deleteById(questionId);
     }
+
+    @Override
+    public void addChoice(int questionId) {
+        questionMapper.addChoice(questionId);
+    }
 }

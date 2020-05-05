@@ -56,4 +56,10 @@ public interface QuestionService {
      * @return
      */
     int deleteQuestion(int questionId);
+
+    /**
+     * 根据问题id进行加精操作
+     * @param questionId 问题id
+     */
+    void addChoice(int questionId);
 }

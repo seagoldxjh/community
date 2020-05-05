@@ -12,6 +12,7 @@ package com.seagold.community.controller.admin;
 import com.seagold.community.entity.JsonData;
 import com.seagold.community.entity.Report;
 import com.seagold.community.entity.User;
+import com.seagold.community.service.QuestionService;
 import com.seagold.community.service.ReportService;
 import com.seagold.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,9 @@ public class AdminController {
 
     @Autowired
     private RedisTemplate<Object,Object> redisTemplate;
+
+    @Autowired
+    private QuestionService questionService;
 
     @GetMapping("/report")
     public String page(Model model){
@@ -87,5 +91,16 @@ public class AdminController {
             return JsonData.buildSuccess("封禁成功");
         }
         return JsonData.buildError("账号被存在或已封禁");
+    }
+
+
+    /**
+     * 为问题加精
+     * @param id 加精问题id
+     */
+    @GetMapping("/question/{id}")
+    @ResponseBody
+    public void addChoice(@PathVariable(value = "id")int id){
+        questionService.addChoice(id);
     }
 }

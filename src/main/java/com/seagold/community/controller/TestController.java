@@ -3,6 +3,7 @@ package com.seagold.community.controller;
 import com.seagold.community.entity.Question;
 import com.seagold.community.service.QuestionService;
 import com.seagold.community.service.ReportService;
+import com.seagold.community.utils.TransactionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,18 @@ public class TestController {
         System.err.println(allQuestion.size());
         System.err.println(allQuestion);
         System.err.println(questionService.findAllQuestion().size());
+
+
+        TransactionUtil.doAfterTransaction(() -> {
+            try {
+                Thread.sleep(5000L);
+                System.err.println("这是同步吗？");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+
         return "success";
     }
 
